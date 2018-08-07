@@ -1,4 +1,4 @@
-table.schemaName = "DB_USER_3"; 
+table.schemaName = "CIO"; 
 table.tableType = COLUMNSTORE;   
 
 
