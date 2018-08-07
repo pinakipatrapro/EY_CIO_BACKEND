@@ -1,6 +1,5 @@
 table.schemaName = "CIO"; 
 table.tableType = COLUMNSTORE;   
-
  
 table.columns =[  
    {  

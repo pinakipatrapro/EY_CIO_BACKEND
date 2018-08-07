@@ -1,7 +1,7 @@
 table.schemaName = "CIO"; 
 table.tableType = COLUMNSTORE;   
 
-
+ 
 table.columns =[  
    {  
       name = "CostPoolID"; sqlType = NVARCHAR;  length = 30;  comment = "CostPoolID";

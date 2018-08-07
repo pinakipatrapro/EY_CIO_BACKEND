@@ -1,9 +1,9 @@
 table.schemaName = "CIO"; 
 table.tableType = COLUMNSTORE;
 
-
+ 
 table.columns =[  
-   {  
+   {   
       name = "CompanyCode"; sqlType = NVARCHAR;  length = 30;   comment = "Company Code";
    },
    {  
