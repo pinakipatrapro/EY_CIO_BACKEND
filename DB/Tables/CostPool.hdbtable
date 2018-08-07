@@ -1,0 +1,29 @@
+table.schemaName = "DB_USER_3"; 
+table.tableType = COLUMNSTORE;   
+
+
+table.columns =[  
+   {  
+      name = "CostPoolID"; sqlType = NVARCHAR;  length = 30;  comment = "CostPoolID";
+   },
+   {  
+      name = "CostPoolName";   sqlType = NVARCHAR;  length = 100; comment = "CostPoolName";
+   },
+   {  
+      name = "SubCostPoolID";  sqlType = NVARCHAR;  length = 30;  comment = "SubCostPoolID";
+   },
+   {  
+      name = "SubCostPoolName";  sqlType = NVARCHAR;  length = 100;  comment = "SubCostPoolName";
+   },
+   {  
+      name = "ChartsofAccountID";  sqlType = NVARCHAR; length = 30; comment = "ChartsofAccountID";
+   },
+   {  
+      name = "GLAccountNumber"; sqlType = NVARCHAR;   length = 30;  comment = "GLAccountNumber";
+   }
+]; 
+
+table.primaryKey.pkcolumns =[  
+   "CostPoolID",
+   "SubCostPoolID"
+];
