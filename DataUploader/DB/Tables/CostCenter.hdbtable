@@ -1,0 +1,25 @@
+table.schemaName = "CIO"; 
+table.tableType = COLUMNSTORE;  
+
+
+table.columns =[  
+   {  
+      name = "CostCenterID"; sqlType = NVARCHAR;  length = 30;  comment = "CostCenterID";
+   },
+   {  
+      name = "CostCenterName";   sqlType = NVARCHAR;  length = 100; comment = "CostCenterName";
+   },
+   {  
+      name = "CostCenterOwner";  sqlType = NVARCHAR;  length = 50;  comment = "CostCenterOwner";
+   },
+   {  
+      name = "LevelInCCHierarchy";   sqlType = NVARCHAR;  length = 10;   comment = "LevelInCCHierarchy";
+   },
+   {  
+      name = "ParentCostCenter";     sqlType = NVARCHAR;   length = 30;  comment = "ParentCostCenter";
+   }
+]; 
+
+table.primaryKey.pkcolumns =[  
+   "CostCenterID"
+];

@@ -1,0 +1,70 @@
+table.schemaName = "CIO"; 
+table.tableType = COLUMNSTORE;
+
+ 
+table.columns =[  
+   {   
+      name = "CompanyCode"; sqlType = NVARCHAR;  length = 30;   comment = "Company Code";
+   },
+   {  
+      name = "FiscalYear";   sqlType = NVARCHAR; length = 4; comment = "Fiscal Year";
+   },
+   {  
+      name = "AccountingDocNumber";  sqlType = NVARCHAR;  length = 30;  comment = "Accounting Doc Number";
+   },
+   {  
+      name = "NumberofLineItem";  sqlType = NVARCHAR;  length = 100;   comment = "Number of Line Item";
+   },
+   {  
+      name = "LineItemTxt"; sqlType = NVARCHAR;   length = 100;  comment = "Line Item Txt";
+   },
+   {  
+      name = "CreditorAccountNumber"; sqlType = NVARCHAR;   length = 30;  comment = "Creditor Account Number";
+   },
+   {  
+      name = "DebitorAccountNumber";  sqlType = NVARCHAR;   length = 30; comment = "Debitor Account Number";
+   },
+   {  
+      name = "MainAssetNumber"; sqlType = NVARCHAR;   length = 30;  comment = "Main Asset Number";
+   },
+   {  
+      name = "CostCenterID"; sqlType = NVARCHAR;   length = 30; comment = "Cost Center ID";
+   },
+   {  
+      name = "WBSElementID";  sqlType = NVARCHAR;   length = 30; comment = "WBS Element ID";
+   },
+   {  
+      name = "InvoiceDocumentNumber"; sqlType = NVARCHAR;   length = 30;  comment = "Invoice Document Number";
+   },
+   {  
+      name = "InvoiceLineItemID";  sqlType = NVARCHAR;   length = 30;   comment = "Invoice Line Item ID";
+   },
+   {  
+      name = "PostingPeriod";  sqlType = NVARCHAR; length = 10;   comment = "Posting Period";
+   },
+   {  
+      name = "PostingDate";  sqlType = DATE; comment = "Posting Date";
+   },
+   {  
+      name = "PostingUser";  sqlType = NVARCHAR;  length = 100; comment = "Posting User";
+   },
+   {  
+      name = "AmountinLocalCurrency"; sqlType = DECIMAL;  precision = 30; scale = 5;   comment = "Amount in Local Currency";
+   },
+   {  
+      name = "LocalCurrency";  sqlType = NVARCHAR; length = 3; comment = "Local Currency";
+   },
+   {  
+      name = "GLAccountNumber"; sqlType = NVARCHAR; length = 30; comment = "GL Account Number";
+   },
+   {  
+      name = "ChartsofAccountID";  sqlType = NVARCHAR;  length = 30;  comment = "Chart of AccountID";
+   }
+]; 
+
+table.primaryKey.pkcolumns =[  
+   "CompanyCode",
+   "FiscalYear",
+   "AccountingDocNumber",
+   "NumberofLineItem"
+];

@@ -1,0 +1,25 @@
+table.schemaName = "CIO"; 
+table.tableType = COLUMNSTORE;  
+
+
+table.columns =[  
+   {  
+      name = "VendorID"; sqlType = NVARCHAR;  length = 30;  comment = "VendorID";
+   },
+   {  
+      name = "CreditorAccNumber";   sqlType = NVARCHAR;  length = 30; comment = "CreditorAccNumber";
+   },
+   {  
+      name = "VendorName";  sqlType = NVARCHAR;  length = 50;  comment = "VendorName";
+   },
+   {  
+      name = "VendorFunction"; sqlType = NVARCHAR;   length = 50;   comment = "VendorFunction";
+   },
+   {  
+      name = "VendorType"; sqlType = NVARCHAR;   length = 50;  comment = "VendorType";
+   }
+]; 
+
+table.primaryKey.pkcolumns =[  
+   "VendorID"
+];

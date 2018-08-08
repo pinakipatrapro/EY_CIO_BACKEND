@@ -1,0 +1,28 @@
+table.schemaName = "CIO"; 
+table.tableType = COLUMNSTORE;  
+ 
+
+table.columns =[  
+   {  
+      name = "WBSElementID"; sqlType = NVARCHAR;  length = 30; comment = "WBSElementID";
+   },
+   {  
+      name = "WBSName";      sqlType = NVARCHAR;  length = 100; comment = "WBSName";
+   },
+   {  
+      name = "ProjectIDWBS";  sqlType = NVARCHAR;  length = 30;  comment = "ProjectID WBS";
+   },
+   {  
+      name = "ProjectNameWBS"; sqlType = NVARCHAR;  length = 100; comment = "ProjectName_WBS";
+   },
+   {  
+      name = "ProjectManagerWBS";   sqlType = NVARCHAR;  length = 100; comment = "ProjectManager_WBS";
+   },
+   {  
+      name = "ExpenseType";  sqlType = NVARCHAR;  length = 100;  comment = "ExpenseType";
+   }
+]; 
+
+table.primaryKey.pkcolumns =[  
+   "WBSElementID"
+];

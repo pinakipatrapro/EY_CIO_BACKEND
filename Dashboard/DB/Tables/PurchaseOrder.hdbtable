@@ -1,0 +1,37 @@
+table.schemaName = "CIO"; 
+table.tableType = COLUMNSTORE;   
+ 
+table.columns =[  
+   {  
+      name = "PODocumentNumber"; sqlType = NVARCHAR;  length = 30;  comment = "PODocNumber";
+   },
+   {  
+      name = "POLineItemID";   sqlType = NVARCHAR; length = 10;  comment = "POLineItemID";
+   },
+   {  
+      name = "CreditorAccountNumber";  sqlType = NVARCHAR;  length = 30;  comment = "CreditorAccountNumber";
+   },
+   {  
+      name = "POLineItemText";  sqlType = NVARCHAR;   length = 100;  comment = "POLineItemTxt";
+   },
+   {  
+      name = "POLineItemOrderUnit"; sqlType = NVARCHAR;   length = 10;  comment = "POLineItemOrderUnit";
+   },
+   {  
+      name = "POLineItemOrderQuantity"; sqlType = DECIMAL;  precision = 30; scale = 5;  comment = "POLineItemOrderQuantity";
+   },
+   {  
+      name = "POLineItemUnitPrice";  sqlType = DECIMAL;  precision = 30; scale = 5; comment = "POLineItemUnitPrice";
+   },
+   {  
+      name = "POLineItemPrice"; sqlType = DECIMAL;  precision = 30; scale = 5; comment = "POLineItemPrice";
+   },
+   {  
+      name = "OrderDate"; sqlType = DATE;  comment = "Order Date";
+   }
+]; 
+
+table.primaryKey.pkcolumns =[  
+   "PODocumentNumber",
+   "POLineItemID"
+];
