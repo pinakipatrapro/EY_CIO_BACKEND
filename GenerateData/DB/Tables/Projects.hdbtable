@@ -1,7 +1,7 @@
 table.schemaName = "CIO"; 
 table.tableType = COLUMNSTORE;   
 
-
+ 
 table.columns =[  
    {  
       name = "ProjectID"; sqlType = NVARCHAR;  length = 30;  comment = "ProjectID";
@@ -25,18 +25,77 @@ table.columns =[
       name = "StandaloneOrGroupwide";  sqlType = NVARCHAR;  length = 30;  comment = "StandaloneOrGroupwide";   
    },
    {  
-      name = "ProjectType";  sqlType = NVARCHAR;  length = 30;  comment = "ProjectType";  
-   },
-   {  
-      name = "StatusPhase";  sqlType = NVARCHAR;  length = 30;  comment = "StatusPhase";  
+      name = "ProjectType";  sqlType = NVARCHAR;  length = 30;  comment = "ProjectType";   
    },
    {  
       name = "StatusScope";  sqlType = NVARCHAR;  length = 30;  comment = "StatusScope";  
    },
    {  
+      name = "StatusPhase";  sqlType = NVARCHAR;  length = 30;  comment = "StatusPhase";  
+   },
+   {  
       name = "QualifyStartDate";  sqlType = DATE; comment = "QualifyStartDate";  
+   },
+   {  
+      name = "QualifyEndDate";  sqlType = DATE; comment = "QualifyEndDate";  
+   },
+   {  
+      name = "PlanStartDate";  sqlType = DATE; comment = "PlanStartDate";  
+   },
+   {  
+      name = "PlanEndDate";  sqlType = DATE; comment = "PlanEndDate";  
+   },
+   {  
+      name = "DesignStartDate";  sqlType = DATE; comment = "DesignStartDate";  
+   },
+   {  
+      name = "DesignEndDate";  sqlType = DATE; comment = "DesignStartDate";  
+   },
+   {  
+      name = "ImplementStartDate";  sqlType = DATE; comment = "ImplementStartDate";  
+   },
+   {  
+      name = "ImplementEndDate";  sqlType = DATE; comment = "ImplementEndDate";  
+   },
+   {  
+      name = "RolloutStartDate";  sqlType = DATE; comment = "RolloutStartDate";  
+   },
+   {  
+      name = "RolloutEndDate";  sqlType = DATE; comment = "RolloutEndDate";  
+   },
+   {  
+      name = "ClosingStartDate";  sqlType = DATE; comment = "ClosingStartDate";  
+   },
+   {  
+      name = "ClosingEndDate";  sqlType = DATE; comment = "ClosingEndDate";  
+   },
+   {  
+       name = "QualifyBudget"; sqlType = DECIMAL;  precision = 30; scale = 5;  comment = "QualifyBudget";
+   },
+   {  
+       name = "PlanBudget"; sqlType = DECIMAL;  precision = 30; scale = 5;  comment = "PlanBudget";
+   },
+   {  
+       name = "DesignBudget"; sqlType = DECIMAL;  precision = 30; scale = 5;  comment = "DesignBudget";
+   },
+   {  
+       name = "ImplementBudget"; sqlType = DECIMAL;  precision = 30; scale = 5;  comment = "ImplementBudget";
+   },
+   {  
+       name = "RolloutBudget"; sqlType = DECIMAL;  precision = 30; scale = 5;  comment = "RolloutBudget";
+   },
+   {  
+       name = "ClosingBudget"; sqlType = DECIMAL;  precision = 30; scale = 5;  comment = "ClosingBudget";
+   },
+   {  
+      name = "ProjectShortDescription";  sqlType = NVARCHAR;  length = 1000;  comment = "ProjectShortDescription";   
+   },
+   {  
+      name = "ProjectStatusComment";  sqlType = NVARCHAR;  length = 1000;  comment = "ProjectStatusComment";   
+   },
+   {  
+      name = "ProjectRisksMitigation";  sqlType = NVARCHAR;  length = 1000;  comment = "ProjectRisksMitigation";   
    }
-   
 ]; 
 
 table.primaryKey.pkcolumns =[  
