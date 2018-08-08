@@ -1,0 +1,23 @@
+table.schemaName = "CIO"; 
+table.tableType = COLUMNSTORE;  
+ 
+
+table.columns =[   
+   {  
+      name = "ChartsofAccountID"; sqlType = NVARCHAR;  length = 30; comment = "ChartsofAccountID";
+   },
+   {  
+      name = "GLAccountNumber";   sqlType = NVARCHAR;  length = 30; comment = "GLAccountNumber";
+   },
+   {  
+      name = "GLAccountName";  sqlType = NVARCHAR;  length = 100;  comment = "GLAccountName";
+   },
+   {  
+      name = "GLAccountGroup"; sqlType = NVARCHAR;   length = 30;  comment = "GLAccountGroup";
+   }
+]; 
+
+table.primaryKey.pkcolumns =[  
+   "ChartsofAccountID",
+   "GLAccountNumber"
+];

@@ -1,0 +1,22 @@
+table.schemaName = "CIO"; 
+table.tableType = COLUMNSTORE;   
+
+
+table.columns =[  
+   {  
+      name = "CompanyCode"; sqlType = NVARCHAR;  length = 30;   comment = "CompanyCode";
+   },
+   {  
+      name = "ReportingUnitName";   sqlType = NVARCHAR; length = 50; comment = "ReportingUnitName";
+   },
+   {  
+      name = "Country";  sqlType = NVARCHAR;  length = 50;  comment = "Country";
+   },
+   {  
+      name = "Region";  sqlType = NVARCHAR;  length = 50;   comment = "Region";
+   }
+]; 
+
+table.primaryKey.pkcolumns =[  
+   "CompanyCode"
+];
