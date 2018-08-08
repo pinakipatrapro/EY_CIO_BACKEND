@@ -1,0 +1,7 @@
+service namespace "AmazonAlexa.Data.Service" {
+
+    "CIO.GenerateData.Models::CA_DATAGEN_LOG"  as "DataGenLog" keys("ID");
+    
+     "CIO.DataUploader.Models::CA_TABLE_COLUMN" as "TableColumns" keys generate local "ID";
+  }   
+  

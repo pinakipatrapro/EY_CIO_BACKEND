@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CA_TABLE_COLUMNS" applyPrivilegeType="ANALYTIC_PRIVILEGE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="2.3" defaultClient="$$client$$" visibility="internal" outputViewType="Projection" calculationScenarioType="TREE_BASED" enforceSqlExecution="false">
+<descriptions defaultDescription="CA_TABLE_COLUMNS"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="TABLE_COLUMNS" type="DATA_BASE_VIEW">
+    <viewAttributes allViewAttributes="true"/>
+    <columnObject schemaName="SYS" columnObjectName="TABLE_COLUMNS"/>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="t">
+    <viewAttributes>
+      <viewAttribute id="TABLE_NAME"/>
+      <viewAttribute id="SCHEMA_NAME"/>
+      <viewAttribute id="COLUMN_NAME"/>
+      <viewAttribute id="DATA_TYPE_NAME"/>
+      <viewAttribute id="LENGTH"/>
+      <viewAttribute id="SCALE"/>
+      <viewAttribute id="IS_NULLABLE"/>
+      <viewAttribute id="POSITION"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="TableName" datatype="VARCHAR" length="300" expressionLanguage="COLUMN_ENGINE">
+        <formula>  '&quot;' + &quot;SCHEMA_NAME&quot; + '&quot;.&quot;' + &quot;TABLE_NAME&quot;  + '&quot;'</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="#TABLE_COLUMNS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="TABLE_NAME" source="TABLE_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SCHEMA_NAME" source="SCHEMA_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COLUMN_NAME" source="COLUMN_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DATA_TYPE_NAME" source="DATA_TYPE_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="LENGTH" source="LENGTH"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SCALE" source="SCALE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IS_NULLABLE" source="IS_NULLABLE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="POSITION" source="POSITION"/>
+    </input>
+  </calculationView>
+</calculationViews>
+<logicalModel id="t">
+  <attributes>
+    <attribute id="TABLE_NAME" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="TABLE_NAME"/>
+      <keyMapping columnObjectName="t" columnName="TABLE_NAME"/>
+    </attribute>
+    <attribute id="SCHEMA_NAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SCHEMA_NAME"/>
+      <keyMapping columnObjectName="t" columnName="SCHEMA_NAME"/>
+    </attribute>
+    <attribute id="TableName" key="true" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="TableName"/>
+      <keyMapping columnObjectName="t" columnName="TableName"/>
+    </attribute>
+    <attribute id="COLUMN_NAME" key="true" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COLUMN_NAME"/>
+      <keyMapping columnObjectName="t" columnName="COLUMN_NAME"/>
+    </attribute>
+    <attribute id="DATA_TYPE_NAME" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DATA_TYPE_NAME"/>
+      <keyMapping columnObjectName="t" columnName="DATA_TYPE_NAME"/>
+    </attribute>
+    <attribute id="LENGTH" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="LENGTH"/>
+      <keyMapping columnObjectName="t" columnName="LENGTH"/>
+    </attribute>
+    <attribute id="SCALE" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SCALE"/>
+      <keyMapping columnObjectName="t" columnName="SCALE"/>
+    </attribute>
+    <attribute id="IS_NULLABLE" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="IS_NULLABLE"/>
+      <keyMapping columnObjectName="t" columnName="IS_NULLABLE"/>
+    </attribute>
+    <attribute id="POSITION" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="POSITION"/>
+      <keyMapping columnObjectName="t" columnName="POSITION"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="t" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="87" y="224"/>
+      <rectangleSize height="30" width="140"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
