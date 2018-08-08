@@ -1,0 +1,32 @@
+table.schemaName = "CIO"; 
+table.tableType = COLUMNSTORE;   
+
+
+table.columns =[  
+   {  
+      name = "ID"; sqlType = NVARCHAR;  length = 100;  
+   },
+   {  
+      name = "NAME"; sqlType = NVARCHAR;  length = 300;  
+   },
+   {  
+      name = "DESCRIPTION"; sqlType = NVARCHAR;  length = 1000;  
+   },
+   {  
+      name = "DATASET";   sqlType = BLOB;
+   },
+   {   
+      name = "USERNAME";   sqlType = NVARCHAR;  length = 100; 
+   },
+   {  
+      name = "TIMESTAMP";  sqlType = TIMESTAMP;  
+   },
+   {  
+      name = "STATUS";  sqlType = NVARCHAR;  length = 1 ;
+   }
+   
+]; 
+
+table.primaryKey.pkcolumns =[  
+   "ID"
+];

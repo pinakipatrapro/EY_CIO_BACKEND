@@ -1,0 +1,44 @@
+table.schemaName = "CIO"; 
+table.tableType = COLUMNSTORE;   
+
+
+table.columns =[  
+   {  
+      name = "ProjectID"; sqlType = NVARCHAR;  length = 30;  comment = "ProjectID";
+   },
+   {  
+      name = "InitiativeID"; sqlType = NVARCHAR;  length = 30;  comment = "ProjectID";
+   },
+   {  
+      name = "ProjectName"; sqlType = NVARCHAR;  length = 50;  comment = "ProjectName";
+   },
+   {  
+      name = "ProjectManager";   sqlType = NVARCHAR;  length = 50;comment = "ProjectManager";
+   },
+   {   
+      name = "ProjectClass";   sqlType = NVARCHAR;  length = 50;comment = "Project Class";
+   },
+   {  
+      name = "ProjectCategory";  sqlType = NVARCHAR;  length = 50;  comment = "ProjectCategory";
+   },
+   {  
+      name = "StandaloneOrGroupwide";  sqlType = NVARCHAR;  length = 30;  comment = "StandaloneOrGroupwide";   
+   },
+   {  
+      name = "ProjectType";  sqlType = NVARCHAR;  length = 30;  comment = "ProjectType";  
+   },
+   {  
+      name = "StatusPhase";  sqlType = NVARCHAR;  length = 30;  comment = "StatusPhase";  
+   },
+   {  
+      name = "StatusScope";  sqlType = NVARCHAR;  length = 30;  comment = "StatusScope";  
+   },
+   {  
+      name = "QualifyStartDate";  sqlType = DATE; comment = "QualifyStartDate";  
+   }
+   
+]; 
+
+table.primaryKey.pkcolumns =[  
+   "ProjectID"
+];
