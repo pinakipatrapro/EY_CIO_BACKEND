@@ -1,0 +1,27 @@
+table.schemaName = "CIO"; 
+table.tableType = COLUMNSTORE;
+
+ 
+table.columns =[  
+   {   
+      name = "GLAccountNumber"; sqlType = NVARCHAR;  length = 30;   comment = "GLAccountNumber";
+   },
+   {  
+      name = "CostCenterID";   sqlType = NVARCHAR; length = 30; comment = "CostCenterID";
+   },
+   {  
+      name = "BudgetPeriod";  sqlType = NVARCHAR;  length = 10;  comment = "Budget Period";
+   },
+   {  
+      name = "Amount"; sqlType = DECIMAL;  precision = 30; scale = 5; comment = "Amount";
+   },
+   {  
+      name = "Currency";  sqlType = NVARCHAR;  length = 10;  comment = "Currency";
+   }
+]; 
+
+table.primaryKey.pkcolumns =[  
+   "GLAccountNumber",
+   "CostCenterID",
+   "BudgetPeriod"
+];

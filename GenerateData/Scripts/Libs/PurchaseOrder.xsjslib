@@ -11,7 +11,7 @@ function loadData(dataGenerator){
 		
 		var poDocNum = genObj.generateRandomAlphaNum(11,{
 			aPossibilities : '1234567890',
-			prefix : "900001"
+			prefix : "9001"
 		});
 		
 		var noLineItems = genObj.generateRandomDecimal(1,9);

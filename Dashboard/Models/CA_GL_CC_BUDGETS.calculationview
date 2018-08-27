@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CA_GL_CC_BUDGETS" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection">
+  <descriptions defaultDescription="CA_GL_CC_BUDGETS"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="CIO.Dashboard.DB.Tables::GLCCBudget" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::GLCCBudget"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="GLAccountNumber"/>
+        <viewAttribute id="CostCenterID"/>
+        <viewAttribute id="BudgetPeriod"/>
+        <viewAttribute id="Amount"/>
+        <viewAttribute id="Currency"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="BudgetPeriodFormatted" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;BudgetPeriod&quot;+'01'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#CIO.Dashboard.DB.Tables::GLCCBudget">
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountNumber" source="GLAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterID" source="CostCenterID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BudgetPeriod" source="BudgetPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Currency" source="Currency"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="GLAccountNumber" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GLAccountNumber"/>
+        <keyMapping columnObjectName="Projection_1" columnName="GLAccountNumber"/>
+      </attribute>
+      <attribute id="CostCenterID" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CostCenterID"/>
+        <keyMapping columnObjectName="Projection_1" columnName="CostCenterID"/>
+      </attribute>
+      <attribute id="BudgetPeriod" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Budget Period"/>
+        <keyMapping columnObjectName="Projection_1" columnName="BudgetPeriod"/>
+      </attribute>
+      <attribute id="Currency" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Currency"/>
+        <keyMapping columnObjectName="Projection_1" columnName="Currency"/>
+      </attribute>
+      <attribute id="BudgetPeriodFormatted" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BudgetPeriodFormatted"/>
+        <keyMapping columnObjectName="Projection_1" columnName="BudgetPeriodFormatted"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Amount" order="4" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="Amount"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="243"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

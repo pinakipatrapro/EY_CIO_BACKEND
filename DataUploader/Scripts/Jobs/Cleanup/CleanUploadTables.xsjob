@@ -1,0 +1,8 @@
+{ 
+   "description": "Clean Uploaded Tables",
+   "action": "CIO.DataUploader.Scripts.Jobs.Cleanup:CleanUploadTables.xsjs::purgeTables",
+   "schedules": [{
+       "description": "Clean uploaded temporary tables for CIO ",
+       "xscron": "* * * * * * 0:59/10"
+   }]
+}

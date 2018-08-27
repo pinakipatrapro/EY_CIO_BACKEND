@@ -4,22 +4,23 @@ table.tableType = COLUMNSTORE;
 
 table.columns =[  
    {  
-      name = "KPI_ID"; sqlType = NVARCHAR;  length = 30; defaultValue = "1000";  comment = "KPI ID";
+      name = "KPIID"; sqlType = NVARCHAR;  length = 30; defaultValue = "1000";  comment = "KPI ID";
    },
    {  
-      name = "KPI_Name";   sqlType = NVARCHAR; length = 50; comment = "KPI Name";
+      name = "KPIName";   sqlType = NVARCHAR; length = 50; comment = "KPI Name";
    },
    {  
       name = "CompanyCode";  sqlType = NVARCHAR;  length = 50;  comment = "Company Code";
    },
    {  
-      name = "KPI_Period";  sqlType = NVARCHAR; length = 10;  comment = "KPI Period";
+      name = "KPIPeriod";  sqlType = NVARCHAR; length = 10;  comment = "KPI Period";
    },
    {  
-      name = "KPI_Value"; sqlType = DECIMAL;  precision = 30; scale = 5; comment = "KPI Value";
+      name = "KPIValue"; sqlType = DECIMAL;  precision = 30; scale = 5; comment = "KPI Value";
    }
 ]; 
 
 table.primaryKey.pkcolumns =[  
-   "KPI_ID"
+   "KPIID",
+   "KPIPeriod"
 ];
