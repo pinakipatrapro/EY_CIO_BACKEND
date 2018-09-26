@@ -82,7 +82,7 @@ var tableMap = [
         "DashboardData": "\"CIO\".\"CIO.Dashboard.DB.Tables::ChartOfAccounts\""
     },
     {
-        "TableNameText": "Chart Of Accounts",
+        "TableNameText": "GL CC Budget",
         "GeneratedData": "\"CIO\".\"CIO.GenerateData.DB.Tables::GLCCBudget\"",
         "UploadedData": "\"CIO\".\"CIO.DataUploader.DB.Tables::GLCCBudget\"",
         "DashboardData": "\"CIO\".\"CIO.Dashboard.DB.Tables::GLCCBudget\""

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CA_EDIT_LOG" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" calculationScenarioType="TREE_BASED" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection">
+  <descriptions defaultDescription="CA_EDIT_LOG"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="CIO.Allocation.DB.Tables::AllocationChangeLog" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Allocation.DB.Tables::AllocationChangeLog"/>
+    </DataSource>
+    <DataSource id="CIO.Allocation.DB.Tables::Allocations" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Allocation.DB.Tables::Allocations"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ChangeLogGUID"/>
+        <viewAttribute id="AllocatonGUID"/>
+        <viewAttribute id="IsActive"/>
+        <viewAttribute id="CreatedOn"/>
+        <viewAttribute id="CreatedBy"/>
+        <viewAttribute id="DeviceInfo"/>
+        <viewAttribute id="Changes"/>
+        <viewAttribute id="UserName"/>
+        <viewAttribute id="UserId"/>
+        <viewAttribute id="Comment"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CIO.Allocation.DB.Tables::AllocationChangeLog">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ChangeLogGUID" source="GUID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AllocatonGUID" source="AllocatonGUID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="IsActive" source="IsActive"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreatedOn" source="CreatedOn"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreatedBy" source="CreatedBy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DeviceInfo" source="DeviceInfo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Changes" source="Changes"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UserName" source="UserName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UserId" source="UserId"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Comment" source="Comment"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="GUID"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CIO.Allocation.DB.Tables::Allocations">
+        <mapping xsi:type="Calculation:AttributeMapping" target="GUID" source="GUID"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="GUID"/>
+        <viewAttribute id="ChangeLogGUID"/>
+        <viewAttribute id="IsActive"/>
+        <viewAttribute id="CreatedOn"/>
+        <viewAttribute id="CreatedBy"/>
+        <viewAttribute id="DeviceInfo"/>
+        <viewAttribute id="Changes"/>
+        <viewAttribute id="UserName"/>
+        <viewAttribute id="UserId"/>
+        <viewAttribute id="Comment"/>
+        <viewAttribute hidden="true" id="JOIN$AllocatonGUID$GUID"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ChangeLogGUID" source="ChangeLogGUID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="IsActive" source="IsActive"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreatedOn" source="CreatedOn"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreatedBy" source="CreatedBy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DeviceInfo" source="DeviceInfo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Changes" source="Changes"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UserName" source="UserName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UserId" source="UserId"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Comment" source="Comment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$AllocatonGUID$GUID" source="AllocatonGUID"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="GUID" source="GUID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$AllocatonGUID$GUID" source="GUID"/>
+      </input>
+      <joinAttribute name="JOIN$AllocatonGUID$GUID"/>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="GUID" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GUID"/>
+        <keyMapping columnObjectName="Join_1" columnName="GUID"/>
+      </attribute>
+      <attribute id="ChangeLogGUID" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ChangeLogGUID"/>
+        <keyMapping columnObjectName="Join_1" columnName="ChangeLogGUID"/>
+      </attribute>
+      <attribute id="IsActive" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="IsActive"/>
+        <keyMapping columnObjectName="Join_1" columnName="IsActive"/>
+      </attribute>
+      <attribute id="CreatedOn" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CreatedOn"/>
+        <keyMapping columnObjectName="Join_1" columnName="CreatedOn"/>
+      </attribute>
+      <attribute id="CreatedBy" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CreatedBy"/>
+        <keyMapping columnObjectName="Join_1" columnName="CreatedBy"/>
+      </attribute>
+      <attribute id="DeviceInfo" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DeviceInfo"/>
+        <keyMapping columnObjectName="Join_1" columnName="DeviceInfo"/>
+      </attribute>
+      <attribute id="Changes" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Changes"/>
+        <keyMapping columnObjectName="Join_1" columnName="Changes"/>
+      </attribute>
+      <attribute id="UserName" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="UserName"/>
+        <keyMapping columnObjectName="Join_1" columnName="UserName"/>
+      </attribute>
+      <attribute id="UserId" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="UserId"/>
+        <keyMapping columnObjectName="Join_1" columnName="UserId"/>
+      </attribute>
+      <attribute id="Comment" order="10" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Comment"/>
+        <keyMapping columnObjectName="Join_1" columnName="Comment"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

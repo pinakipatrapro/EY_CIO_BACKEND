@@ -1,0 +1,23 @@
+service namespace "CIO.Allocation" {
+     
+    "CIO.Allocation.Models/CA_COSTC_COSTP.calculationview"  as "CCVCP_CC" keys generate local "ID" 
+    parameters via entity "CCVCP_CC_IP" results property "Execute";
+    
+    "_SYS_BIC"."CIO.Allocation.Models/CA_COSTC_COSTP_BUDGET"  as "CCVCP_CCBudget" keys generate local "ID";
+    	 
+    "_SYS_BIC"."CIO.Allocation.Models/CA_IT_SERVICES"  as "ITServiceMaster" keys("NavigateToAll");
+    
+    "_SYS_BIC"."CIO.Allocation.Models/CA_BUSINESS_SERVICES" as "BusinessService"  keys generate local "ID";
+    
+      "_SYS_BIC"."CIO.Allocation.Models/CA_BUSINESS" as "Business"  keys generate local "ID";
+      
+      "_SYS_BIC"."CIO.Allocation.Models/CA_DRAFT_TEMPLATE" as "DraftTemplate" keys("GUID");
+      
+      "_SYS_BIC"."CIO.Allocation.Models/CA_EDIT_LOG" as "EditLog" keys("ChangeLogGUID");
+      
+      "CIO.Allocation.Models/CA_CHANGE_LOG.calculationview" as "ChangeLog"   keys generate local "ID" 
+      parameters via entity "GUID" results property "Execute";
+  }   
+ 
+    
+ 

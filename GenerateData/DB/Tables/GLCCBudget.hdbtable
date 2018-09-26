@@ -13,6 +13,9 @@ table.columns =[
       name = "BudgetPeriod";  sqlType = NVARCHAR;  length = 10;  comment = "Budget Period";
    },
    {  
+      name = "BudgetType";  sqlType = NVARCHAR;  length =20;  comment = "Budget Type - Project / Operation";
+   },
+   {  
       name = "Amount"; sqlType = DECIMAL;  precision = 30; scale = 5; comment = "Amount";
    },
    {  
@@ -23,5 +26,6 @@ table.columns =[
 table.primaryKey.pkcolumns =[  
    "GLAccountNumber",
    "CostCenterID",
-   "BudgetPeriod"
+   "BudgetPeriod",
+   "BudgetType"
 ];

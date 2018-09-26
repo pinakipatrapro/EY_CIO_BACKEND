@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CA_COSTC_COSTP_BUDGET" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <descriptions defaultDescription="Cost Center Vs Cost Pool Data"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="31"/>
+  <dataSources>
+    <DataSource id="CIO.Dashboard.DB.Tables::CostPool" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::CostPool"/>
+    </DataSource>
+    <DataSource id="CIO.Dashboard.DB.Tables::GLCCBudget" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::GLCCBudget"/>
+    </DataSource>
+    <DataSource id="CIO.Dashboard.DB.Tables::CostCenter" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::CostCenter"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CostPoolID"/>
+        <viewAttribute id="CostPoolName"/>
+        <viewAttribute id="GLAccountNumber"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CIO.Dashboard.DB.Tables::CostPool">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostPoolID" source="CostPoolID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostPoolName" source="CostPoolName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountNumber" source="GLAccountNumber"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CostPoolID"/>
+        <viewAttribute id="CostPoolName"/>
+        <viewAttribute id="GLAccountNumber"/>
+        <viewAttribute id="Currency"/>
+        <viewAttribute id="Amount"/>
+        <viewAttribute id="BudgetPeriod"/>
+        <viewAttribute id="CostCenterID"/>
+        <viewAttribute id="BudgetType"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostPoolID" source="CostPoolID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostPoolName" source="CostPoolName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountNumber" source="GLAccountNumber"/>
+      </input>
+      <input node="#CIO.Dashboard.DB.Tables::GLCCBudget">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Currency" source="Currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BudgetPeriod" source="BudgetPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterID" source="CostCenterID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BudgetType" source="BudgetType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountNumber" source="GLAccountNumber"/>
+      </input>
+      <joinAttribute name="GLAccountNumber"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CostPoolID"/>
+        <viewAttribute id="CostPoolName"/>
+        <viewAttribute id="Currency"/>
+        <viewAttribute id="Amount"/>
+        <viewAttribute id="CostCenterID"/>
+        <viewAttribute id="CostCenterName"/>
+        <viewAttribute id="BudgetPeriod"/>
+        <viewAttribute id="BudgetType"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="Year" length="10" expressionLanguage="SQL">
+          <formula>substring(&quot;BudgetPeriod&quot;,0,4)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostPoolID" source="CostPoolID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostPoolName" source="CostPoolName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Currency" source="Currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterID" source="CostCenterID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BudgetPeriod" source="BudgetPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BudgetType" source="BudgetType"/>
+      </input>
+      <input node="#CIO.Dashboard.DB.Tables::CostCenter">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterName" source="CostCenterName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterID" source="CostCenterID"/>
+      </input>
+      <joinAttribute name="CostCenterID"/>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Join_3">
+    <descriptions/>
+    <attributes>
+      <attribute id="CostPoolID" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CostPoolID"/>
+        <keyMapping columnObjectName="Join_3" columnName="CostPoolID"/>
+      </attribute>
+      <attribute id="CostPoolName" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CostPoolName"/>
+        <keyMapping columnObjectName="Join_3" columnName="CostPoolName"/>
+      </attribute>
+      <attribute id="Currency" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Currency"/>
+        <keyMapping columnObjectName="Join_3" columnName="Currency"/>
+      </attribute>
+      <attribute id="CostCenterID" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CostCenterID"/>
+        <keyMapping columnObjectName="Join_3" columnName="CostCenterID"/>
+      </attribute>
+      <attribute id="CostCenterName" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CostCenterName"/>
+        <keyMapping columnObjectName="Join_3" columnName="CostCenterName"/>
+      </attribute>
+      <attribute id="Year" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year"/>
+        <keyMapping columnObjectName="Join_3" columnName="Year"/>
+      </attribute>
+      <attribute id="BudgetType" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Budget Type - Project / Operation"/>
+        <keyMapping columnObjectName="Join_3" columnName="BudgetType"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="NavigateToAll" hidden="false" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="NavigateToAll"/>
+        <keyCalculation datatype="VARCHAR" expressionLanguage="COLUMN_ENGINE" length="1">
+          <formula>'*'</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+      <calculatedAttribute id="AmountFormatted" hidden="false" order="2" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AmountFormatted"/>
+        <keyCalculation datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="30" scale="0">
+          <formula>round(&quot;Amount&quot;,0)</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Amount" order="6" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Amount"/>
+        <measureMapping columnObjectName="Join_3" columnName="Amount"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

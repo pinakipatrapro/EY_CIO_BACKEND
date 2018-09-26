@@ -1,0 +1,43 @@
+table.schemaName = "CIO"; 
+table.tableType = COLUMNSTORE;  
+ 
+
+table.columns =[  
+	{  
+      name = "GUID"; 					sqlType = NVARCHAR;  length = 50;
+   },
+   {  
+      name = "AllocatonGUID"; 			sqlType = NVARCHAR;  length = 50;
+   },
+   {  
+      name = "IsActive";      			sqlType = NVARCHAR;  length = 1;
+   },
+   {  
+	  name = "CreatedOn";      			sqlType = TIMESTAMP;
+   },
+   {  
+      name = "CreatedBy";      			sqlType = NVARCHAR;  length = 100;
+   },
+   {  
+      name = "DeviceInfo";      		sqlType = NVARCHAR;  length = 5000;
+   },
+   {  
+      name = "Changes";      			sqlType = NVARCHAR;  length = 10;
+   },
+   {  
+      name = "ChangeData";      		sqlType = BLOB;
+   },
+   {  
+      name = "UserName";      			sqlType = NVARCHAR;  length = 100;
+   },
+   {  
+      name = "UserId";      			sqlType = NVARCHAR;  length = 100;
+   },
+   {  
+      name = "Comment";      			sqlType = NVARCHAR;  length = 300;
+   }  
+]; 
+
+table.primaryKey.pkcolumns =[  
+   "GUID","AllocatonGUID"
+];

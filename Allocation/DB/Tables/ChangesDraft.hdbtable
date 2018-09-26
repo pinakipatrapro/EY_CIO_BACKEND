@@ -1,0 +1,40 @@
+table.schemaName = "CIO"; 
+table.tableType = COLUMNSTORE;  
+ 
+
+table.columns =[  
+	{  
+      name = "GUID"; 				sqlType = NVARCHAR;  length = 50;
+   },
+   {  
+      name = "UserName"; 			sqlType = NVARCHAR;  length = 50;
+   },
+   {  
+      name = "UserID";      		sqlType = NVARCHAR;  length = 50;
+   },
+   {  
+	  name = "TimeStamp";      		sqlType = TIMESTAMP; 
+   },
+   {  
+      name = "Name";      			sqlType = NVARCHAR;  length = 50;
+   },
+   {  
+      name = "Description";      	sqlType = NVARCHAR;  length = 50;
+   },
+   {  
+      name = "Data";      			sqlType = BLOB;
+   },
+   {  
+      name = "Status";     			sqlType = NVARCHAR;  length = 3;
+   },
+   {  
+      name = "Type";     			sqlType = NVARCHAR;  length = 20; comment = "Template / Draft";
+   },
+    {  
+      name = "Attributes";     		sqlType = NVARCHAR;  length = 5000; comment = "Only valid if the type is of Draft. Invalid for template Type";
+   }
+]; 
+
+table.primaryKey.pkcolumns =[  
+   "GUID"
+];

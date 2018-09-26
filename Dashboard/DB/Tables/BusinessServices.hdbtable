@@ -1,0 +1,22 @@
+table.schemaName = "CIO"; 
+table.tableType = COLUMNSTORE;  
+
+
+table.columns =[  
+   {  
+      name = "BusinessServiceCategoryID"; sqlType = NVARCHAR;  length = 30;  comment = "CostCenterID";
+   },
+   {  
+      name = "BusinessServiceCategory";   sqlType = NVARCHAR;  length = 100; comment = "CostCenterName";
+   },
+   {  
+      name = "BusinessServiceGroup";  sqlType = NVARCHAR;  length = 100;  comment = "CostCenterOwner";
+   },
+   {  
+      name = "BusinessService";   sqlType = NVARCHAR;  length = 100;   comment = "LevelInCCHierarchy";
+   }
+]; 
+
+table.primaryKey.pkcolumns =[  
+   "BusinessServiceCategoryID"
+]; 

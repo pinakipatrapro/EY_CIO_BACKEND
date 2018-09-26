@@ -1,0 +1,31 @@
+table.schemaName = "CIO"; 
+table.tableType = COLUMNSTORE;  
+ 
+
+table.columns =[  
+	{  
+      name = "GUID"; 				sqlType = NVARCHAR;  length = 50;
+   },
+   {  
+      name = "AllocationType"; 			sqlType = NVARCHAR;  length = 50;
+   },
+   {  
+      name = "AllocationSubType";      		sqlType = NVARCHAR;  length = 50;
+   },
+   {  
+	  name = "ActualPeriod";      		sqlType = NVARCHAR;  length = 10;
+   },
+   {  
+      name = "BudgetPeriod";      			sqlType = NVARCHAR;  length = 10;
+   },
+   {  
+      name = "Name";      			sqlType = NVARCHAR;  length = 100;
+   },
+   {  
+      name = "Description";     			sqlType = NVARCHAR;  length = 1000;
+   }
+]; 
+
+table.primaryKey.pkcolumns =[  
+   "GUID"
+];
