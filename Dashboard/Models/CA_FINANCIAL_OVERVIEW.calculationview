@@ -1,0 +1,667 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CA_FINANCIAL_OVERVIEW" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <descriptions defaultDescription="CA_FINANCIAL_OVERVIEW"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="25"/>
+  <dataSources>
+    <DataSource id="CIO.GenerateData.DB.Tables::ActualCostAccounting" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.GenerateData.DB.Tables::ActualCostAccounting"/>
+    </DataSource>
+    <DataSource id="CIO.Dashboard.DB.Tables::WBS" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::WBS"/>
+    </DataSource>
+    <DataSource id="CIO.Dashboard.DB.Tables::Project" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::Project"/>
+    </DataSource>
+    <DataSource id="CIO.Dashboard.DB.Tables::CostCenter" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::CostCenter"/>
+    </DataSource>
+    <DataSource id="CIO.Dashboard.DB.Tables::ChartOfAccounts" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::ChartOfAccounts"/>
+    </DataSource>
+    <DataSource id="CA_GL_CC_BUDGETS" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/CIO.Dashboard.Models/calculationviews/CA_GL_CC_BUDGETS</resourceUri>
+    </DataSource>
+    <DataSource id="CIO.Dashboard.DB.Tables::ReportingUnit" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::ReportingUnit"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CompanyCode"/>
+        <viewAttribute id="FiscalYear"/>
+        <viewAttribute id="AccountingDocNumber"/>
+        <viewAttribute id="NumberofLineItem"/>
+        <viewAttribute id="LineItemTxt"/>
+        <viewAttribute id="CreditorAccountNumber"/>
+        <viewAttribute id="DebitorAccountNumber"/>
+        <viewAttribute id="MainAssetNumber"/>
+        <viewAttribute id="CostCenterID"/>
+        <viewAttribute id="WBSElementID"/>
+        <viewAttribute id="InvoiceDocumentNumber"/>
+        <viewAttribute id="InvoiceLineItemID"/>
+        <viewAttribute id="PostingPeriod"/>
+        <viewAttribute id="PostingDate"/>
+        <viewAttribute id="PostingUser"/>
+        <viewAttribute id="AmountinLocalCurrency"/>
+        <viewAttribute id="LocalCurrency"/>
+        <viewAttribute id="GLAccountNumber"/>
+        <viewAttribute id="ChartsofAccountID"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CIO.GenerateData.DB.Tables::ActualCostAccounting">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CompanyCode" source="CompanyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FiscalYear" source="FiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AccountingDocNumber" source="AccountingDocNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NumberofLineItem" source="NumberofLineItem"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LineItemTxt" source="LineItemTxt"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreditorAccountNumber" source="CreditorAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DebitorAccountNumber" source="DebitorAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MainAssetNumber" source="MainAssetNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterID" source="CostCenterID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSElementID" source="WBSElementID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InvoiceDocumentNumber" source="InvoiceDocumentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InvoiceLineItemID" source="InvoiceLineItemID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingPeriod" source="PostingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingDate" source="PostingDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingUser" source="PostingUser"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AmountinLocalCurrency" source="AmountinLocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LocalCurrency" source="LocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountNumber" source="GLAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ChartsofAccountID" source="ChartsofAccountID"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" cardinality="C1_N" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CompanyCode"/>
+        <viewAttribute id="FiscalYear"/>
+        <viewAttribute id="AccountingDocNumber"/>
+        <viewAttribute id="NumberofLineItem"/>
+        <viewAttribute id="LineItemTxt"/>
+        <viewAttribute id="CreditorAccountNumber"/>
+        <viewAttribute id="DebitorAccountNumber"/>
+        <viewAttribute id="MainAssetNumber"/>
+        <viewAttribute id="CostCenterID"/>
+        <viewAttribute id="WBSElementID"/>
+        <viewAttribute id="InvoiceDocumentNumber"/>
+        <viewAttribute id="InvoiceLineItemID"/>
+        <viewAttribute id="PostingPeriod"/>
+        <viewAttribute id="PostingDate"/>
+        <viewAttribute id="PostingUser"/>
+        <viewAttribute id="AmountinLocalCurrency"/>
+        <viewAttribute id="LocalCurrency"/>
+        <viewAttribute id="GLAccountNumber"/>
+        <viewAttribute id="ChartsofAccountID"/>
+        <viewAttribute id="ProjectIDWBS"/>
+        <viewAttribute id="WBSName"/>
+        <viewAttribute id="ExpenseType"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CompanyCode" source="CompanyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FiscalYear" source="FiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AccountingDocNumber" source="AccountingDocNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NumberofLineItem" source="NumberofLineItem"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LineItemTxt" source="LineItemTxt"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreditorAccountNumber" source="CreditorAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DebitorAccountNumber" source="DebitorAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MainAssetNumber" source="MainAssetNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterID" source="CostCenterID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSElementID" source="WBSElementID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InvoiceDocumentNumber" source="InvoiceDocumentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InvoiceLineItemID" source="InvoiceLineItemID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingPeriod" source="PostingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingDate" source="PostingDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingUser" source="PostingUser"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AmountinLocalCurrency" source="AmountinLocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LocalCurrency" source="LocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountNumber" source="GLAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ChartsofAccountID" source="ChartsofAccountID"/>
+      </input>
+      <input node="#CIO.Dashboard.DB.Tables::WBS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectIDWBS" source="ProjectIDWBS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSName" source="WBSName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ExpenseType" source="ExpenseType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSElementID" source="WBSElementID"/>
+      </input>
+      <joinAttribute name="WBSElementID"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" cardinality="C1_N" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ProjectName"/>
+        <viewAttribute id="CompanyCode"/>
+        <viewAttribute id="FiscalYear"/>
+        <viewAttribute id="AccountingDocNumber"/>
+        <viewAttribute id="NumberofLineItem"/>
+        <viewAttribute id="LineItemTxt"/>
+        <viewAttribute id="CreditorAccountNumber"/>
+        <viewAttribute id="DebitorAccountNumber"/>
+        <viewAttribute id="MainAssetNumber"/>
+        <viewAttribute id="CostCenterID"/>
+        <viewAttribute id="WBSElementID"/>
+        <viewAttribute id="InvoiceDocumentNumber"/>
+        <viewAttribute id="InvoiceLineItemID"/>
+        <viewAttribute id="PostingPeriod"/>
+        <viewAttribute id="PostingDate"/>
+        <viewAttribute id="PostingUser"/>
+        <viewAttribute id="AmountinLocalCurrency"/>
+        <viewAttribute id="LocalCurrency"/>
+        <viewAttribute id="GLAccountNumber"/>
+        <viewAttribute id="ChartsofAccountID"/>
+        <viewAttribute id="ProjectIDWBS"/>
+        <viewAttribute id="WBSName"/>
+        <viewAttribute id="ExpenseType"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CompanyCode" source="CompanyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FiscalYear" source="FiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AccountingDocNumber" source="AccountingDocNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NumberofLineItem" source="NumberofLineItem"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LineItemTxt" source="LineItemTxt"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreditorAccountNumber" source="CreditorAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DebitorAccountNumber" source="DebitorAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MainAssetNumber" source="MainAssetNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterID" source="CostCenterID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSElementID" source="WBSElementID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InvoiceDocumentNumber" source="InvoiceDocumentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InvoiceLineItemID" source="InvoiceLineItemID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingPeriod" source="PostingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingDate" source="PostingDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingUser" source="PostingUser"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AmountinLocalCurrency" source="AmountinLocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LocalCurrency" source="LocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountNumber" source="GLAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ChartsofAccountID" source="ChartsofAccountID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectIDWBS" source="ProjectIDWBS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSName" source="WBSName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ExpenseType" source="ExpenseType"/>
+      </input>
+      <input node="#CIO.Dashboard.DB.Tables::Project">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectName" source="ProjectName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectIDWBS" source="ProjectID"/>
+      </input>
+      <joinAttribute name="ProjectIDWBS"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_4" cardinality="C1_N" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ProjectName"/>
+        <viewAttribute id="CompanyCode"/>
+        <viewAttribute id="FiscalYear"/>
+        <viewAttribute id="AccountingDocNumber"/>
+        <viewAttribute id="NumberofLineItem"/>
+        <viewAttribute id="LineItemTxt"/>
+        <viewAttribute id="CreditorAccountNumber"/>
+        <viewAttribute id="DebitorAccountNumber"/>
+        <viewAttribute id="MainAssetNumber"/>
+        <viewAttribute id="CostCenterID"/>
+        <viewAttribute id="WBSElementID"/>
+        <viewAttribute id="InvoiceDocumentNumber"/>
+        <viewAttribute id="InvoiceLineItemID"/>
+        <viewAttribute id="PostingPeriod"/>
+        <viewAttribute id="PostingDate"/>
+        <viewAttribute id="PostingUser"/>
+        <viewAttribute id="AmountinLocalCurrency"/>
+        <viewAttribute id="LocalCurrency"/>
+        <viewAttribute id="GLAccountNumber"/>
+        <viewAttribute id="ChartsofAccountID"/>
+        <viewAttribute id="ProjectIDWBS"/>
+        <viewAttribute id="WBSName"/>
+        <viewAttribute id="CostCenterName"/>
+        <viewAttribute id="ExpenseType"/>
+        <viewAttribute id="CostCenterOwner"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectName" source="ProjectName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CompanyCode" source="CompanyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FiscalYear" source="FiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AccountingDocNumber" source="AccountingDocNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NumberofLineItem" source="NumberofLineItem"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LineItemTxt" source="LineItemTxt"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreditorAccountNumber" source="CreditorAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DebitorAccountNumber" source="DebitorAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MainAssetNumber" source="MainAssetNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterID" source="CostCenterID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSElementID" source="WBSElementID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InvoiceDocumentNumber" source="InvoiceDocumentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InvoiceLineItemID" source="InvoiceLineItemID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingPeriod" source="PostingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingDate" source="PostingDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingUser" source="PostingUser"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AmountinLocalCurrency" source="AmountinLocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LocalCurrency" source="LocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountNumber" source="GLAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ChartsofAccountID" source="ChartsofAccountID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectIDWBS" source="ProjectIDWBS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSName" source="WBSName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ExpenseType" source="ExpenseType"/>
+      </input>
+      <input node="#CIO.Dashboard.DB.Tables::CostCenter">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterName" source="CostCenterName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterOwner" source="CostCenterOwner"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterID" source="CostCenterID"/>
+      </input>
+      <joinAttribute name="CostCenterID"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_5" cardinality="C1_N" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ProjectName"/>
+        <viewAttribute id="CompanyCode"/>
+        <viewAttribute id="FiscalYear"/>
+        <viewAttribute id="AccountingDocNumber"/>
+        <viewAttribute id="NumberofLineItem"/>
+        <viewAttribute id="LineItemTxt"/>
+        <viewAttribute id="CreditorAccountNumber"/>
+        <viewAttribute id="DebitorAccountNumber"/>
+        <viewAttribute id="MainAssetNumber"/>
+        <viewAttribute id="CostCenterID"/>
+        <viewAttribute id="WBSElementID"/>
+        <viewAttribute id="InvoiceDocumentNumber"/>
+        <viewAttribute id="InvoiceLineItemID"/>
+        <viewAttribute id="PostingPeriod"/>
+        <viewAttribute id="PostingDate"/>
+        <viewAttribute id="PostingUser"/>
+        <viewAttribute id="AmountinLocalCurrency"/>
+        <viewAttribute id="LocalCurrency"/>
+        <viewAttribute id="GLAccountNumber"/>
+        <viewAttribute id="ChartsofAccountID"/>
+        <viewAttribute id="ProjectIDWBS"/>
+        <viewAttribute id="WBSName"/>
+        <viewAttribute id="CostCenterName"/>
+        <viewAttribute id="GLAccountName"/>
+        <viewAttribute id="ExpenseType"/>
+        <viewAttribute id="CostCenterOwner"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectName" source="ProjectName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CompanyCode" source="CompanyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FiscalYear" source="FiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AccountingDocNumber" source="AccountingDocNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NumberofLineItem" source="NumberofLineItem"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LineItemTxt" source="LineItemTxt"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreditorAccountNumber" source="CreditorAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DebitorAccountNumber" source="DebitorAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MainAssetNumber" source="MainAssetNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterID" source="CostCenterID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSElementID" source="WBSElementID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InvoiceDocumentNumber" source="InvoiceDocumentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InvoiceLineItemID" source="InvoiceLineItemID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingPeriod" source="PostingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingDate" source="PostingDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingUser" source="PostingUser"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AmountinLocalCurrency" source="AmountinLocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LocalCurrency" source="LocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountNumber" source="GLAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ChartsofAccountID" source="ChartsofAccountID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectIDWBS" source="ProjectIDWBS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSName" source="WBSName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterName" source="CostCenterName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ExpenseType" source="ExpenseType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterOwner" source="CostCenterOwner"/>
+      </input>
+      <input node="#CIO.Dashboard.DB.Tables::ChartOfAccounts">
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountName" source="GLAccountName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountNumber" source="GLAccountNumber"/>
+      </input>
+      <joinAttribute name="GLAccountNumber"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_6" cardinality="C1_N" joinOrder="OUTSIDE_IN" joinType="rightOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ProjectName"/>
+        <viewAttribute id="CompanyCode"/>
+        <viewAttribute id="FiscalYear"/>
+        <viewAttribute id="AccountingDocNumber"/>
+        <viewAttribute id="NumberofLineItem"/>
+        <viewAttribute id="LineItemTxt"/>
+        <viewAttribute id="CreditorAccountNumber"/>
+        <viewAttribute id="DebitorAccountNumber"/>
+        <viewAttribute id="MainAssetNumber"/>
+        <viewAttribute id="CostCenterID"/>
+        <viewAttribute id="WBSElementID"/>
+        <viewAttribute id="InvoiceDocumentNumber"/>
+        <viewAttribute id="InvoiceLineItemID"/>
+        <viewAttribute id="PostingPeriod"/>
+        <viewAttribute id="PostingDate"/>
+        <viewAttribute id="PostingUser"/>
+        <viewAttribute id="AmountinLocalCurrency"/>
+        <viewAttribute id="LocalCurrency"/>
+        <viewAttribute id="GLAccountNumber"/>
+        <viewAttribute id="ChartsofAccountID"/>
+        <viewAttribute id="ProjectIDWBS"/>
+        <viewAttribute id="WBSName"/>
+        <viewAttribute id="CostCenterName"/>
+        <viewAttribute id="GLAccountName"/>
+        <viewAttribute id="BudgetAmount"/>
+        <viewAttribute id="BudgetCurrency"/>
+        <viewAttribute id="ExpenseType"/>
+        <viewAttribute id="CostCenterOwner"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectName" source="ProjectName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CompanyCode" source="CompanyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FiscalYear" source="FiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AccountingDocNumber" source="AccountingDocNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NumberofLineItem" source="NumberofLineItem"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LineItemTxt" source="LineItemTxt"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreditorAccountNumber" source="CreditorAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DebitorAccountNumber" source="DebitorAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MainAssetNumber" source="MainAssetNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterID" source="CostCenterID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSElementID" source="WBSElementID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InvoiceDocumentNumber" source="InvoiceDocumentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InvoiceLineItemID" source="InvoiceLineItemID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingPeriod" source="PostingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingDate" source="PostingDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingUser" source="PostingUser"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AmountinLocalCurrency" source="AmountinLocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LocalCurrency" source="LocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountNumber" source="GLAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ChartsofAccountID" source="ChartsofAccountID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectIDWBS" source="ProjectIDWBS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSName" source="WBSName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterName" source="CostCenterName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountName" source="GLAccountName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ExpenseType" source="ExpenseType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterOwner" source="CostCenterOwner"/>
+      </input>
+      <input node="#CA_GL_CC_BUDGETS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BudgetAmount" source="Amount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BudgetCurrency" source="Currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountNumber" source="GLAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterID" source="CostCenterID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingPeriod" source="BudgetPeriodFormatted"/>
+      </input>
+      <joinAttribute name="GLAccountNumber"/>
+      <joinAttribute name="CostCenterID"/>
+      <joinAttribute name="PostingPeriod"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ProjectName"/>
+        <viewAttribute id="CompanyCode"/>
+        <viewAttribute id="FiscalYear"/>
+        <viewAttribute id="AccountingDocNumber"/>
+        <viewAttribute id="NumberofLineItem"/>
+        <viewAttribute id="LineItemTxt"/>
+        <viewAttribute id="CreditorAccountNumber"/>
+        <viewAttribute id="DebitorAccountNumber"/>
+        <viewAttribute id="MainAssetNumber"/>
+        <viewAttribute id="CostCenterID"/>
+        <viewAttribute id="WBSElementID"/>
+        <viewAttribute id="InvoiceDocumentNumber"/>
+        <viewAttribute id="InvoiceLineItemID"/>
+        <viewAttribute id="PostingPeriod"/>
+        <viewAttribute id="PostingDate"/>
+        <viewAttribute id="PostingUser"/>
+        <viewAttribute id="AmountinLocalCurrency"/>
+        <viewAttribute id="LocalCurrency"/>
+        <viewAttribute id="GLAccountNumber"/>
+        <viewAttribute id="ChartsofAccountID"/>
+        <viewAttribute id="ProjectIDWBS"/>
+        <viewAttribute id="WBSName"/>
+        <viewAttribute id="CostCenterName"/>
+        <viewAttribute id="GLAccountName"/>
+        <viewAttribute id="Amount"/>
+        <viewAttribute id="BudgetCurrency"/>
+        <viewAttribute id="ReportingUnitName"/>
+        <viewAttribute id="Country"/>
+        <viewAttribute id="Region"/>
+        <viewAttribute id="ExpenseType"/>
+        <viewAttribute id="CostCenterOwner"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectName" source="ProjectName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CompanyCode" source="CompanyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FiscalYear" source="FiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AccountingDocNumber" source="AccountingDocNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NumberofLineItem" source="NumberofLineItem"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LineItemTxt" source="LineItemTxt"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreditorAccountNumber" source="CreditorAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DebitorAccountNumber" source="DebitorAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MainAssetNumber" source="MainAssetNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterID" source="CostCenterID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSElementID" source="WBSElementID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InvoiceDocumentNumber" source="InvoiceDocumentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InvoiceLineItemID" source="InvoiceLineItemID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingPeriod" source="PostingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingDate" source="PostingDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PostingUser" source="PostingUser"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AmountinLocalCurrency" source="AmountinLocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LocalCurrency" source="LocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountNumber" source="GLAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ChartsofAccountID" source="ChartsofAccountID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectIDWBS" source="ProjectIDWBS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSName" source="WBSName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterName" source="CostCenterName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountName" source="GLAccountName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="BudgetAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BudgetCurrency" source="BudgetCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ExpenseType" source="ExpenseType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CostCenterOwner" source="CostCenterOwner"/>
+      </input>
+      <input node="#CIO.Dashboard.DB.Tables::ReportingUnit">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ReportingUnitName" source="ReportingUnitName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Country" source="Country"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Region" source="Region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CompanyCode" source="CompanyCode"/>
+      </input>
+      <joinAttribute name="CompanyCode"/>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="ProjectName" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectName"/>
+        <keyMapping columnObjectName="Join_1" columnName="ProjectName"/>
+      </attribute>
+      <attribute id="CompanyCode" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company Code"/>
+        <keyMapping columnObjectName="Join_1" columnName="CompanyCode"/>
+      </attribute>
+      <attribute id="FiscalYear" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year"/>
+        <keyMapping columnObjectName="Join_1" columnName="FiscalYear"/>
+      </attribute>
+      <attribute id="AccountingDocNumber" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Accounting Doc Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="AccountingDocNumber"/>
+      </attribute>
+      <attribute id="NumberofLineItem" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Number of Line Item"/>
+        <keyMapping columnObjectName="Join_1" columnName="NumberofLineItem"/>
+      </attribute>
+      <attribute id="LineItemTxt" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line Item Txt"/>
+        <keyMapping columnObjectName="Join_1" columnName="LineItemTxt"/>
+      </attribute>
+      <attribute id="CreditorAccountNumber" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Creditor Account Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="CreditorAccountNumber"/>
+      </attribute>
+      <attribute id="DebitorAccountNumber" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Debitor Account Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="DebitorAccountNumber"/>
+      </attribute>
+      <attribute id="MainAssetNumber" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Main Asset Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="MainAssetNumber"/>
+      </attribute>
+      <attribute id="CostCenterID" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center ID"/>
+        <keyMapping columnObjectName="Join_1" columnName="CostCenterID"/>
+      </attribute>
+      <attribute id="WBSElementID" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WBS Element ID"/>
+        <keyMapping columnObjectName="Join_1" columnName="WBSElementID"/>
+      </attribute>
+      <attribute id="InvoiceDocumentNumber" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Invoice Document Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="InvoiceDocumentNumber"/>
+      </attribute>
+      <attribute id="InvoiceLineItemID" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Invoice Line Item ID"/>
+        <keyMapping columnObjectName="Join_1" columnName="InvoiceLineItemID"/>
+      </attribute>
+      <attribute id="PostingPeriod" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Posting Period"/>
+        <keyMapping columnObjectName="Join_1" columnName="PostingPeriod"/>
+      </attribute>
+      <attribute id="PostingDate" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Posting Date"/>
+        <keyMapping columnObjectName="Join_1" columnName="PostingDate"/>
+      </attribute>
+      <attribute id="PostingUser" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Posting User"/>
+        <keyMapping columnObjectName="Join_1" columnName="PostingUser"/>
+      </attribute>
+      <attribute id="LocalCurrency" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Local Currency"/>
+        <keyMapping columnObjectName="Join_1" columnName="LocalCurrency"/>
+      </attribute>
+      <attribute id="GLAccountNumber" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GL Account Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="GLAccountNumber"/>
+      </attribute>
+      <attribute id="ChartsofAccountID" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Chart of AccountID"/>
+        <keyMapping columnObjectName="Join_1" columnName="ChartsofAccountID"/>
+      </attribute>
+      <attribute id="ProjectIDWBS" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectID WBS"/>
+        <keyMapping columnObjectName="Join_1" columnName="ProjectIDWBS"/>
+      </attribute>
+      <attribute id="WBSName" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WBSName"/>
+        <keyMapping columnObjectName="Join_1" columnName="WBSName"/>
+      </attribute>
+      <attribute id="CostCenterName" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CostCenterName"/>
+        <keyMapping columnObjectName="Join_1" columnName="CostCenterName"/>
+      </attribute>
+      <attribute id="GLAccountName" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GLAccountName"/>
+        <keyMapping columnObjectName="Join_1" columnName="GLAccountName"/>
+      </attribute>
+      <attribute id="BudgetCurrency" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BudgetCurrency"/>
+        <keyMapping columnObjectName="Join_1" columnName="BudgetCurrency"/>
+      </attribute>
+      <attribute id="ReportingUnitName" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ReportingUnitName"/>
+        <keyMapping columnObjectName="Join_1" columnName="ReportingUnitName"/>
+      </attribute>
+      <attribute id="Country" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Country"/>
+        <keyMapping columnObjectName="Join_1" columnName="Country"/>
+      </attribute>
+      <attribute id="Region" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Join_1" columnName="Region"/>
+      </attribute>
+      <attribute id="ExpenseType" order="31" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ExpenseType"/>
+        <keyMapping columnObjectName="Join_1" columnName="ExpenseType"/>
+      </attribute>
+      <attribute id="CostCenterOwner" order="32" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CostCenterOwner"/>
+        <keyMapping columnObjectName="Join_1" columnName="CostCenterOwner"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="OpeProj" hidden="false" order="30" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Operation Vs Project"/>
+        <keyCalculation datatype="VARCHAR" expressionLanguage="COLUMN_ENGINE" length="20">
+          <formula>if(&quot;WBSElementID&quot; = '','Operation','Project')</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+      <calculatedAttribute id="PostingPeriodFormatted" hidden="false" order="34" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PostingPeriodFormatted"/>
+        <keyCalculation datatype="VARCHAR" expressionLanguage="SQL" length="30">
+          <formula>concat(concat(substring(monthname(&quot;PostingPeriod&quot;),1,3),'-') , year(&quot;PostingPeriod&quot;))</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Amount" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Amount in Local Currency"/>
+        <measureMapping columnObjectName="Join_1" columnName="AmountinLocalCurrency"/>
+      </measure>
+      <measure id="Budget" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="Amount"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="Variance" hidden="false" order="33" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="5">
+        <descriptions defaultDescription="Variance"/>
+        <formula>&quot;Budget&quot;-&quot;Amount&quot;</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="741"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="645"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="549"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="453"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

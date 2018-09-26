@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CA_PROJECTS_PORTFOLIO" applyPrivilegeType="ANALYTIC_PRIVILEGE" cacheEnabled="true" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <descriptions defaultDescription="CA_PROJECTS_PORTFOLIO"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="39"/>
+  <dataSources>
+    <DataSource id="CIO.Dashboard.DB.Tables::Project" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::Project"/>
+    </DataSource>
+    <DataSource id="CIO.Dashboard.DB.Tables::Initiative" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::Initiative"/>
+    </DataSource>
+    <DataSource id="CA_PROJECT_PORTFOLIO_ACTUALS" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/CIO.Dashboard.Models/calculationviews/CA_PROJECT_PORTFOLIO_ACTUALS</resourceUri>
+    </DataSource>
+    <DataSource id="M_TIME_DIMENSION" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="_SYS_BI" columnObjectName="M_TIME_DIMENSION"/>
+    </DataSource>
+    <DataSource id="Join_5$$$$M_TIME_DIMENSION$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="_SYS_BI" columnObjectName="M_TIME_DIMENSION"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ProjectID"/>
+        <viewAttribute id="InitiativeID"/>
+        <viewAttribute id="ProjectName"/>
+        <viewAttribute id="ProjectManager"/>
+        <viewAttribute id="ProjectClass"/>
+        <viewAttribute id="ProjectCategory"/>
+        <viewAttribute id="StandaloneOrGroupwide"/>
+        <viewAttribute id="ProjectType"/>
+        <viewAttribute id="StatusScope"/>
+        <viewAttribute id="StatusPhase"/>
+        <viewAttribute id="QualifyStartDate"/>
+        <viewAttribute id="QualifyEndDate"/>
+        <viewAttribute id="PlanStartDate"/>
+        <viewAttribute id="PlanEndDate"/>
+        <viewAttribute id="DesignStartDate"/>
+        <viewAttribute id="DesignEndDate"/>
+        <viewAttribute id="ImplementStartDate"/>
+        <viewAttribute id="ImplementEndDate"/>
+        <viewAttribute id="RolloutStartDate"/>
+        <viewAttribute id="RolloutEndDate"/>
+        <viewAttribute id="ClosingStartDate"/>
+        <viewAttribute id="ClosingEndDate"/>
+        <viewAttribute id="QualifyBudget"/>
+        <viewAttribute id="PlanBudget"/>
+        <viewAttribute id="DesignBudget"/>
+        <viewAttribute id="ImplementBudget"/>
+        <viewAttribute id="RolloutBudget"/>
+        <viewAttribute id="ClosingBudget"/>
+        <viewAttribute id="ProjectShortDescription"/>
+        <viewAttribute id="ProjectStatusComment"/>
+        <viewAttribute id="ProjectRisksMitigation"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="TotalBudget" length="34" scale="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;QualifyBudget&quot;+&quot;PlanBudget&quot;+&quot;DesignBudget&quot;+&quot;ImplementBudget&quot;+&quot;RolloutBudget&quot;+&quot;ClosingBudget&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#CIO.Dashboard.DB.Tables::Project">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectID" source="ProjectID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InitiativeID" source="InitiativeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectName" source="ProjectName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectManager" source="ProjectManager"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectClass" source="ProjectClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectCategory" source="ProjectCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StandaloneOrGroupwide" source="StandaloneOrGroupwide"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectType" source="ProjectType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StatusScope" source="StatusScope"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StatusPhase" source="StatusPhase"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QualifyStartDate" source="QualifyStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QualifyEndDate" source="QualifyEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PlanStartDate" source="PlanStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PlanEndDate" source="PlanEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DesignStartDate" source="DesignStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DesignEndDate" source="DesignEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ImplementStartDate" source="ImplementStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ImplementEndDate" source="ImplementEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RolloutStartDate" source="RolloutStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RolloutEndDate" source="RolloutEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ClosingStartDate" source="ClosingStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ClosingEndDate" source="ClosingEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QualifyBudget" source="QualifyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PlanBudget" source="PlanBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DesignBudget" source="DesignBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ImplementBudget" source="ImplementBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RolloutBudget" source="RolloutBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ClosingBudget" source="ClosingBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectShortDescription" source="ProjectShortDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectStatusComment" source="ProjectStatusComment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectRisksMitigation" source="ProjectRisksMitigation"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="InitiativeID"/>
+        <viewAttribute id="InitiativeName"/>
+        <viewAttribute id="InitiativeBudget"/>
+        <viewAttribute id="ProjectManagerWBS"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CIO.Dashboard.DB.Tables::Initiative">
+        <mapping xsi:type="Calculation:AttributeMapping" target="InitiativeID" source="InitiativeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InitiativeName" source="InitiativeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InitiativeBudget" source="InitiativeBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectManagerWBS" source="ProjectManagerWBS"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="C1_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ProjectID"/>
+        <viewAttribute id="InitiativeID"/>
+        <viewAttribute id="ProjectName"/>
+        <viewAttribute id="ProjectManager"/>
+        <viewAttribute id="ProjectClass"/>
+        <viewAttribute id="ProjectCategory"/>
+        <viewAttribute id="StandaloneOrGroupwide"/>
+        <viewAttribute id="ProjectType"/>
+        <viewAttribute id="StatusScope"/>
+        <viewAttribute id="StatusPhase"/>
+        <viewAttribute id="QualifyStartDate"/>
+        <viewAttribute id="QualifyEndDate"/>
+        <viewAttribute id="PlanStartDate"/>
+        <viewAttribute id="PlanEndDate"/>
+        <viewAttribute id="DesignStartDate"/>
+        <viewAttribute id="DesignEndDate"/>
+        <viewAttribute id="ImplementStartDate"/>
+        <viewAttribute id="ImplementEndDate"/>
+        <viewAttribute id="RolloutStartDate"/>
+        <viewAttribute id="RolloutEndDate"/>
+        <viewAttribute id="ClosingStartDate"/>
+        <viewAttribute id="ClosingEndDate"/>
+        <viewAttribute id="QualifyBudget"/>
+        <viewAttribute id="PlanBudget"/>
+        <viewAttribute id="DesignBudget"/>
+        <viewAttribute id="ImplementBudget"/>
+        <viewAttribute id="RolloutBudget"/>
+        <viewAttribute id="ClosingBudget"/>
+        <viewAttribute id="ProjectShortDescription"/>
+        <viewAttribute id="ProjectStatusComment"/>
+        <viewAttribute id="ProjectRisksMitigation"/>
+        <viewAttribute id="InitiativeName"/>
+        <viewAttribute id="InitiativeBudget"/>
+        <viewAttribute id="ProjectManagerWBS"/>
+        <viewAttribute id="TotalBudget"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectID" source="ProjectID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InitiativeID" source="InitiativeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectName" source="ProjectName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectManager" source="ProjectManager"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectClass" source="ProjectClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectCategory" source="ProjectCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StandaloneOrGroupwide" source="StandaloneOrGroupwide"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectType" source="ProjectType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StatusScope" source="StatusScope"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StatusPhase" source="StatusPhase"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QualifyStartDate" source="QualifyStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QualifyEndDate" source="QualifyEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PlanStartDate" source="PlanStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PlanEndDate" source="PlanEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DesignStartDate" source="DesignStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DesignEndDate" source="DesignEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ImplementStartDate" source="ImplementStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ImplementEndDate" source="ImplementEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RolloutStartDate" source="RolloutStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RolloutEndDate" source="RolloutEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ClosingStartDate" source="ClosingStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ClosingEndDate" source="ClosingEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QualifyBudget" source="QualifyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PlanBudget" source="PlanBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DesignBudget" source="DesignBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ImplementBudget" source="ImplementBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RolloutBudget" source="RolloutBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ClosingBudget" source="ClosingBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectShortDescription" source="ProjectShortDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectStatusComment" source="ProjectStatusComment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectRisksMitigation" source="ProjectRisksMitigation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TotalBudget" source="TotalBudget"/>
+      </input>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="InitiativeName" source="InitiativeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InitiativeBudget" source="InitiativeBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectManagerWBS" source="ProjectManagerWBS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InitiativeID" source="InitiativeID"/>
+      </input>
+      <joinAttribute name="InitiativeID"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ProjectID"/>
+        <viewAttribute id="ProjectName"/>
+        <viewAttribute id="LocalCurrency"/>
+        <viewAttribute id="ExpenseType"/>
+        <viewAttribute id="AmountinLocalCurrency"/>
+        <viewAttribute id="Country"/>
+        <viewAttribute id="ReportingUnitName"/>
+        <viewAttribute id="Region"/>
+        <viewAttribute id="GLAccountName"/>
+        <viewAttribute id="VendorName"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CA_PROJECT_PORTFOLIO_ACTUALS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectID" source="ProjectID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectName" source="ProjectName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LocalCurrency" source="LocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ExpenseType" source="ExpenseType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AmountinLocalCurrency" source="AmountinLocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Country" source="Country"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ReportingUnitName" source="ReportingUnitName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Region" source="Region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountName" source="GLAccountName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VendorName" source="VendorName"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" cardinality="C1_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ProjectID"/>
+        <viewAttribute id="InitiativeID"/>
+        <viewAttribute id="ProjectName"/>
+        <viewAttribute id="ProjectManager"/>
+        <viewAttribute id="ProjectClass"/>
+        <viewAttribute id="ProjectCategory"/>
+        <viewAttribute id="StandaloneOrGroupwide"/>
+        <viewAttribute id="ProjectType"/>
+        <viewAttribute id="StatusScope"/>
+        <viewAttribute id="StatusPhase"/>
+        <viewAttribute id="QualifyStartDate"/>
+        <viewAttribute id="QualifyEndDate"/>
+        <viewAttribute id="PlanStartDate"/>
+        <viewAttribute id="PlanEndDate"/>
+        <viewAttribute id="DesignStartDate"/>
+        <viewAttribute id="DesignEndDate"/>
+        <viewAttribute id="ImplementStartDate"/>
+        <viewAttribute id="ImplementEndDate"/>
+        <viewAttribute id="RolloutStartDate"/>
+        <viewAttribute id="RolloutEndDate"/>
+        <viewAttribute id="ClosingStartDate"/>
+        <viewAttribute id="ClosingEndDate"/>
+        <viewAttribute id="QualifyBudget"/>
+        <viewAttribute id="PlanBudget"/>
+        <viewAttribute id="DesignBudget"/>
+        <viewAttribute id="ImplementBudget"/>
+        <viewAttribute id="RolloutBudget"/>
+        <viewAttribute id="ClosingBudget"/>
+        <viewAttribute id="ProjectShortDescription"/>
+        <viewAttribute id="ProjectStatusComment"/>
+        <viewAttribute id="ProjectRisksMitigation"/>
+        <viewAttribute id="InitiativeName"/>
+        <viewAttribute id="InitiativeBudget"/>
+        <viewAttribute id="ProjectManagerWBS"/>
+        <viewAttribute id="TotalBudget"/>
+        <viewAttribute id="LocalCurrency"/>
+        <viewAttribute id="ExpenseType"/>
+        <viewAttribute id="AmountinLocalCurrency"/>
+        <viewAttribute id="Country"/>
+        <viewAttribute id="ReportingUnitName"/>
+        <viewAttribute id="Region"/>
+        <viewAttribute id="GLAccountName"/>
+        <viewAttribute id="VendorName"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="ProjectPhaseID" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>CASE ( &quot;StatusPhase&quot;     ,       'Qualify', '1',&#xD;
+                                                      'Plan', '2',&#xD;
+                                                      'Design', '3',&#xD;
+                                                      'Implement', '4',&#xD;
+                                                      'Rollout', '5',                                         &#xD;
+                                'Closed' ,'6')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="CurrentPhaseBudget" length="34" scale="5" expressionLanguage="COLUMN_ENGINE">
+          <formula>CASE ( decfloat(&quot;ProjectPhaseID&quot;)       ,       1, &quot;QualifyBudget&quot;,&#xD;
+                                                      2, &quot;PlanBudget&quot;,&#xD;
+                                                      3, &quot;DesignBudget&quot;,&#xD;
+                                                      4,&quot;ImplementBudget&quot;,&#xD;
+                                                      5, &quot;RolloutBudget&quot;,                                         &#xD;
+                                6 ,&quot;ClosingBudget&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="ProjectDeyalInDays" expressionLanguage="COLUMN_ENGINE">
+          <formula>&#xD;
+if ( &quot;StatusPhase&quot;='Qualify' ,daysbetween(date(NOW()),&quot;QualifyEndDate&quot;),0) +&#xD;
+if ( &quot;StatusPhase&quot;='Plan' ,daysbetween(date(NOW()),&quot;PlanEndDate&quot;),0)+&#xD;
+if ( &quot;StatusPhase&quot;='Design', daysbetween(date(NOW()),&quot;DesignEndDate&quot;),0) +&#xD;
+if ( &quot;StatusPhase&quot;='Implement' , daysbetween(date(NOW()),&quot;ImplementEndDate&quot;),0)+&#xD;
+if ( &quot;StatusPhase&quot;='Rollout' , daysbetween(date(NOW()),&quot;RolloutEndDate&quot;),0) +&#xD;
+if ( &quot;StatusPhase&quot;='Closed', daysbetween(date(NOW()),&quot;ClosingEndDate&quot;),0)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectID" source="ProjectID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InitiativeID" source="InitiativeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectName" source="ProjectName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectManager" source="ProjectManager"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectClass" source="ProjectClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectCategory" source="ProjectCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StandaloneOrGroupwide" source="StandaloneOrGroupwide"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectType" source="ProjectType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StatusScope" source="StatusScope"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StatusPhase" source="StatusPhase"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QualifyStartDate" source="QualifyStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QualifyEndDate" source="QualifyEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PlanStartDate" source="PlanStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PlanEndDate" source="PlanEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DesignStartDate" source="DesignStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DesignEndDate" source="DesignEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ImplementStartDate" source="ImplementStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ImplementEndDate" source="ImplementEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RolloutStartDate" source="RolloutStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RolloutEndDate" source="RolloutEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ClosingStartDate" source="ClosingStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ClosingEndDate" source="ClosingEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QualifyBudget" source="QualifyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PlanBudget" source="PlanBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DesignBudget" source="DesignBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ImplementBudget" source="ImplementBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RolloutBudget" source="RolloutBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ClosingBudget" source="ClosingBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectShortDescription" source="ProjectShortDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectStatusComment" source="ProjectStatusComment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectRisksMitigation" source="ProjectRisksMitigation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InitiativeName" source="InitiativeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InitiativeBudget" source="InitiativeBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectManagerWBS" source="ProjectManagerWBS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TotalBudget" source="TotalBudget"/>
+      </input>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="LocalCurrency" source="LocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ExpenseType" source="ExpenseType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AmountinLocalCurrency" source="AmountinLocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Country" source="Country"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ReportingUnitName" source="ReportingUnitName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Region" source="Region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountName" source="GLAccountName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VendorName" source="VendorName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectID" source="ProjectID"/>
+      </input>
+      <joinAttribute name="ProjectID"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ProjectID"/>
+        <viewAttribute id="InitiativeID"/>
+        <viewAttribute id="ProjectName"/>
+        <viewAttribute id="ProjectManager"/>
+        <viewAttribute id="ProjectClass"/>
+        <viewAttribute id="ProjectCategory"/>
+        <viewAttribute id="StandaloneOrGroupwide"/>
+        <viewAttribute id="ProjectType"/>
+        <viewAttribute id="StatusScope"/>
+        <viewAttribute id="StatusPhase"/>
+        <viewAttribute id="QualifyStartDate"/>
+        <viewAttribute id="QualifyEndDate"/>
+        <viewAttribute id="PlanStartDate"/>
+        <viewAttribute id="PlanEndDate"/>
+        <viewAttribute id="DesignStartDate"/>
+        <viewAttribute id="DesignEndDate"/>
+        <viewAttribute id="ImplementStartDate"/>
+        <viewAttribute id="ImplementEndDate"/>
+        <viewAttribute id="RolloutStartDate"/>
+        <viewAttribute id="RolloutEndDate"/>
+        <viewAttribute id="ClosingStartDate"/>
+        <viewAttribute id="ClosingEndDate"/>
+        <viewAttribute id="QualifyBudget"/>
+        <viewAttribute id="PlanBudget"/>
+        <viewAttribute id="DesignBudget"/>
+        <viewAttribute id="ImplementBudget"/>
+        <viewAttribute id="RolloutBudget"/>
+        <viewAttribute id="ClosingBudget"/>
+        <viewAttribute id="ProjectShortDescription"/>
+        <viewAttribute id="ProjectStatusComment"/>
+        <viewAttribute id="ProjectRisksMitigation"/>
+        <viewAttribute id="InitiativeName"/>
+        <viewAttribute id="InitiativeBudget"/>
+        <viewAttribute id="ProjectManagerWBS"/>
+        <viewAttribute id="TotalBudget"/>
+        <viewAttribute id="ProjectStartDate"/>
+        <viewAttribute id="ProjectStartYear"/>
+        <viewAttribute id="ProjectStartQuarter"/>
+        <viewAttribute id="ProjectStartMonth"/>
+        <viewAttribute id="ProjectStartWeek"/>
+        <viewAttribute id="LocalCurrency"/>
+        <viewAttribute id="ExpenseType"/>
+        <viewAttribute id="AmountinLocalCurrency"/>
+        <viewAttribute id="Country"/>
+        <viewAttribute id="ReportingUnitName"/>
+        <viewAttribute id="Region"/>
+        <viewAttribute id="GLAccountName"/>
+        <viewAttribute id="VendorName"/>
+        <viewAttribute id="ProjectPhaseID"/>
+        <viewAttribute id="CurrentPhaseBudget"/>
+        <viewAttribute id="ProjectDeyalInDays"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectID" source="ProjectID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InitiativeID" source="InitiativeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectName" source="ProjectName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectManager" source="ProjectManager"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectClass" source="ProjectClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectCategory" source="ProjectCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StandaloneOrGroupwide" source="StandaloneOrGroupwide"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectType" source="ProjectType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StatusScope" source="StatusScope"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StatusPhase" source="StatusPhase"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QualifyStartDate" source="QualifyStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QualifyEndDate" source="QualifyEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PlanStartDate" source="PlanStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PlanEndDate" source="PlanEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DesignStartDate" source="DesignStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DesignEndDate" source="DesignEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ImplementStartDate" source="ImplementStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ImplementEndDate" source="ImplementEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RolloutStartDate" source="RolloutStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RolloutEndDate" source="RolloutEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ClosingStartDate" source="ClosingStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ClosingEndDate" source="ClosingEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QualifyBudget" source="QualifyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PlanBudget" source="PlanBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DesignBudget" source="DesignBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ImplementBudget" source="ImplementBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RolloutBudget" source="RolloutBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ClosingBudget" source="ClosingBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectShortDescription" source="ProjectShortDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectStatusComment" source="ProjectStatusComment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectRisksMitigation" source="ProjectRisksMitigation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InitiativeName" source="InitiativeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InitiativeBudget" source="InitiativeBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectManagerWBS" source="ProjectManagerWBS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TotalBudget" source="TotalBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LocalCurrency" source="LocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ExpenseType" source="ExpenseType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AmountinLocalCurrency" source="AmountinLocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Country" source="Country"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ReportingUnitName" source="ReportingUnitName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Region" source="Region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountName" source="GLAccountName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VendorName" source="VendorName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectPhaseID" source="ProjectPhaseID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CurrentPhaseBudget" source="CurrentPhaseBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectDeyalInDays" source="ProjectDeyalInDays"/>
+      </input>
+      <input node="#M_TIME_DIMENSION">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectStartDate" source="DATE_SQL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectStartYear" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectStartQuarter" source="QUARTER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectStartMonth" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectStartWeek" source="WEEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QualifyStartDate" source="DATE_SQL"/>
+      </input>
+      <joinAttribute name="QualifyStartDate"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ProjectID"/>
+        <viewAttribute id="InitiativeID"/>
+        <viewAttribute id="ProjectName"/>
+        <viewAttribute id="ProjectManager"/>
+        <viewAttribute id="ProjectClass"/>
+        <viewAttribute id="ProjectCategory"/>
+        <viewAttribute id="StandaloneOrGroupwide"/>
+        <viewAttribute id="ProjectType"/>
+        <viewAttribute id="StatusScope"/>
+        <viewAttribute id="StatusPhase"/>
+        <viewAttribute id="QualifyStartDate"/>
+        <viewAttribute id="QualifyEndDate"/>
+        <viewAttribute id="PlanStartDate"/>
+        <viewAttribute id="PlanEndDate"/>
+        <viewAttribute id="DesignStartDate"/>
+        <viewAttribute id="DesignEndDate"/>
+        <viewAttribute id="ImplementStartDate"/>
+        <viewAttribute id="ImplementEndDate"/>
+        <viewAttribute id="RolloutStartDate"/>
+        <viewAttribute id="RolloutEndDate"/>
+        <viewAttribute id="ClosingStartDate"/>
+        <viewAttribute id="ClosingEndDate"/>
+        <viewAttribute id="QualifyBudget"/>
+        <viewAttribute id="PlanBudget"/>
+        <viewAttribute id="DesignBudget"/>
+        <viewAttribute id="ImplementBudget"/>
+        <viewAttribute id="RolloutBudget"/>
+        <viewAttribute id="ClosingBudget"/>
+        <viewAttribute id="ProjectShortDescription"/>
+        <viewAttribute id="ProjectStatusComment"/>
+        <viewAttribute id="ProjectRisksMitigation"/>
+        <viewAttribute id="InitiativeName"/>
+        <viewAttribute id="InitiativeBudget"/>
+        <viewAttribute id="ProjectManagerWBS"/>
+        <viewAttribute id="TotalBudget"/>
+        <viewAttribute id="ProjectStartDate"/>
+        <viewAttribute id="ProjectStartYear"/>
+        <viewAttribute id="ProjectStartQuarter"/>
+        <viewAttribute id="ProjectStartMonth"/>
+        <viewAttribute id="ProjectStartWeek"/>
+        <viewAttribute id="ProjectEndDate"/>
+        <viewAttribute id="ProjectEndYear"/>
+        <viewAttribute id="ProjectEndQuarter"/>
+        <viewAttribute id="ProjectEndMonth"/>
+        <viewAttribute id="ProjectEndWeek"/>
+        <viewAttribute id="LocalCurrency"/>
+        <viewAttribute id="ExpenseType"/>
+        <viewAttribute id="Actual"/>
+        <viewAttribute id="Country"/>
+        <viewAttribute id="ReportingUnitName"/>
+        <viewAttribute id="Region"/>
+        <viewAttribute id="GLAccountName"/>
+        <viewAttribute id="VendorName"/>
+        <viewAttribute id="ProjectPhaseID"/>
+        <viewAttribute id="CurrentPhaseBudget"/>
+        <viewAttribute id="ProjectDeyalInDays"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectID" source="ProjectID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InitiativeID" source="InitiativeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectName" source="ProjectName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectManager" source="ProjectManager"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectClass" source="ProjectClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectCategory" source="ProjectCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StandaloneOrGroupwide" source="StandaloneOrGroupwide"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectType" source="ProjectType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StatusScope" source="StatusScope"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StatusPhase" source="StatusPhase"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QualifyStartDate" source="QualifyStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QualifyEndDate" source="QualifyEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PlanStartDate" source="PlanStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PlanEndDate" source="PlanEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DesignStartDate" source="DesignStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DesignEndDate" source="DesignEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ImplementStartDate" source="ImplementStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ImplementEndDate" source="ImplementEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RolloutStartDate" source="RolloutStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RolloutEndDate" source="RolloutEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ClosingStartDate" source="ClosingStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ClosingEndDate" source="ClosingEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QualifyBudget" source="QualifyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PlanBudget" source="PlanBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DesignBudget" source="DesignBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ImplementBudget" source="ImplementBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RolloutBudget" source="RolloutBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ClosingBudget" source="ClosingBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectShortDescription" source="ProjectShortDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectStatusComment" source="ProjectStatusComment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectRisksMitigation" source="ProjectRisksMitigation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InitiativeName" source="InitiativeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="InitiativeBudget" source="InitiativeBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectManagerWBS" source="ProjectManagerWBS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TotalBudget" source="TotalBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectStartDate" source="ProjectStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectStartYear" source="ProjectStartYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectStartQuarter" source="ProjectStartQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectStartMonth" source="ProjectStartMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectStartWeek" source="ProjectStartWeek"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LocalCurrency" source="LocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ExpenseType" source="ExpenseType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Actual" source="AmountinLocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Country" source="Country"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ReportingUnitName" source="ReportingUnitName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Region" source="Region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountName" source="GLAccountName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VendorName" source="VendorName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectPhaseID" source="ProjectPhaseID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CurrentPhaseBudget" source="CurrentPhaseBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectDeyalInDays" source="ProjectDeyalInDays"/>
+      </input>
+      <input node="#Join_5$$$$M_TIME_DIMENSION$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectEndDate" source="DATE_SQL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectEndYear" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectEndQuarter" source="QUARTER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectEndMonth" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectEndWeek" source="WEEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ClosingEndDate" source="DATE_SQL"/>
+      </input>
+      <joinAttribute name="ClosingEndDate"/>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Join_5">
+    <descriptions/>
+    <attributes>
+      <attribute id="ProjectID" hidden="true" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectID"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectID"/>
+      </attribute>
+      <attribute id="InitiativeID" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectID"/>
+        <keyMapping columnObjectName="Join_5" columnName="InitiativeID"/>
+      </attribute>
+      <attribute id="ProjectName" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectName"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectName"/>
+      </attribute>
+      <attribute id="ProjectManager" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectManager"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectManager"/>
+      </attribute>
+      <attribute id="ProjectClass" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Project Class"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectClass"/>
+      </attribute>
+      <attribute id="ProjectCategory" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectCategory"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectCategory"/>
+      </attribute>
+      <attribute id="StandaloneOrGroupwide" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="StandaloneOrGroupwide"/>
+        <keyMapping columnObjectName="Join_5" columnName="StandaloneOrGroupwide"/>
+      </attribute>
+      <attribute id="ProjectType" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectType"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectType"/>
+      </attribute>
+      <attribute id="StatusScope" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="StatusScope"/>
+        <keyMapping columnObjectName="Join_5" columnName="StatusScope"/>
+      </attribute>
+      <attribute id="StatusPhase" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="StatusPhase"/>
+        <keyMapping columnObjectName="Join_5" columnName="StatusPhase"/>
+      </attribute>
+      <attribute id="QualifyStartDate" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="QualifyStartDate"/>
+        <keyMapping columnObjectName="Join_5" columnName="QualifyStartDate"/>
+      </attribute>
+      <attribute id="QualifyEndDate" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="QualifyEndDate"/>
+        <keyMapping columnObjectName="Join_5" columnName="QualifyEndDate"/>
+      </attribute>
+      <attribute id="PlanStartDate" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PlanStartDate"/>
+        <keyMapping columnObjectName="Join_5" columnName="PlanStartDate"/>
+      </attribute>
+      <attribute id="PlanEndDate" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PlanEndDate"/>
+        <keyMapping columnObjectName="Join_5" columnName="PlanEndDate"/>
+      </attribute>
+      <attribute id="DesignStartDate" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DesignStartDate"/>
+        <keyMapping columnObjectName="Join_5" columnName="DesignStartDate"/>
+      </attribute>
+      <attribute id="DesignEndDate" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DesignStartDate"/>
+        <keyMapping columnObjectName="Join_5" columnName="DesignEndDate"/>
+      </attribute>
+      <attribute id="ImplementStartDate" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ImplementStartDate"/>
+        <keyMapping columnObjectName="Join_5" columnName="ImplementStartDate"/>
+      </attribute>
+      <attribute id="ImplementEndDate" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ImplementEndDate"/>
+        <keyMapping columnObjectName="Join_5" columnName="ImplementEndDate"/>
+      </attribute>
+      <attribute id="RolloutStartDate" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RolloutStartDate"/>
+        <keyMapping columnObjectName="Join_5" columnName="RolloutStartDate"/>
+      </attribute>
+      <attribute id="RolloutEndDate" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RolloutEndDate"/>
+        <keyMapping columnObjectName="Join_5" columnName="RolloutEndDate"/>
+      </attribute>
+      <attribute id="ClosingStartDate" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ClosingStartDate"/>
+        <keyMapping columnObjectName="Join_5" columnName="ClosingStartDate"/>
+      </attribute>
+      <attribute id="ClosingEndDate" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ClosingEndDate"/>
+        <keyMapping columnObjectName="Join_5" columnName="ClosingEndDate"/>
+      </attribute>
+      <attribute id="ProjectShortDescription" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectShortDescription"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectShortDescription"/>
+      </attribute>
+      <attribute id="ProjectStatusComment" order="30" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectStatusComment"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectStatusComment"/>
+      </attribute>
+      <attribute id="ProjectRisksMitigation" order="31" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectRisksMitigation"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectRisksMitigation"/>
+      </attribute>
+      <attribute id="InitiativeName" order="32" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Initiative Name"/>
+        <keyMapping columnObjectName="Join_5" columnName="InitiativeName"/>
+      </attribute>
+      <attribute id="ProjectManagerWBS" order="34" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Project Manager_WBS"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectManagerWBS"/>
+      </attribute>
+      <attribute id="ProjectStartDate" order="36" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectStartDate"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectStartDate"/>
+      </attribute>
+      <attribute id="ProjectStartYear" order="37" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectStartYear"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectStartYear"/>
+      </attribute>
+      <attribute id="ProjectStartQuarter" order="38" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectStartQuarter"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectStartQuarter"/>
+      </attribute>
+      <attribute id="ProjectStartMonth" order="39" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectStartMonth"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectStartMonth"/>
+      </attribute>
+      <attribute id="ProjectStartWeek" order="40" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectStartWeek"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectStartWeek"/>
+      </attribute>
+      <attribute id="ProjectEndDate" order="41" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectEndDate"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectEndDate"/>
+      </attribute>
+      <attribute id="ProjectEndYear" order="42" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectEndYear"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectEndYear"/>
+      </attribute>
+      <attribute id="ProjectEndQuarter" order="43" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectEndQuarter"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectEndQuarter"/>
+      </attribute>
+      <attribute id="ProjectEndMonth" order="44" attributeHierarchyActive="false" descriptionColumnName="ProjectEndMonthDescription" displayAttribute="false">
+        <descriptions defaultDescription="ProjectEndMonth"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectEndMonth"/>
+      </attribute>
+      <attribute id="ProjectEndWeek" order="45" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectEndWeek"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectEndWeek"/>
+      </attribute>
+      <attribute id="LocalCurrency" order="47" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Local Currency"/>
+        <keyMapping columnObjectName="Join_5" columnName="LocalCurrency"/>
+      </attribute>
+      <attribute id="ExpenseType" order="48" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ExpenseType"/>
+        <keyMapping columnObjectName="Join_5" columnName="ExpenseType"/>
+      </attribute>
+      <attribute id="Country" order="50" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Country"/>
+        <keyMapping columnObjectName="Join_5" columnName="Country"/>
+      </attribute>
+      <attribute id="ReportingUnitName" order="51" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ReportingUnitName"/>
+        <keyMapping columnObjectName="Join_5" columnName="ReportingUnitName"/>
+      </attribute>
+      <attribute id="Region" order="52" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Join_5" columnName="Region"/>
+      </attribute>
+      <attribute id="GLAccountName" order="53" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GLAccountName"/>
+        <keyMapping columnObjectName="Join_5" columnName="GLAccountName"/>
+      </attribute>
+      <attribute id="VendorName" order="54" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VendorName"/>
+        <keyMapping columnObjectName="Join_5" columnName="VendorName"/>
+      </attribute>
+      <attribute id="ProjectPhaseID" order="55" attributeHierarchyActive="false" descriptionColumnName="StatusPhase" displayAttribute="false">
+        <descriptions defaultDescription="ProjectPhaseID"/>
+        <keyMapping columnObjectName="Join_5" columnName="ProjectPhaseID"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="ProjectEndMonthDescription" hidden="false" order="58" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectEndMonthDescription"/>
+        <keyCalculation datatype="VARCHAR" expressionLanguage="SQL" length="20">
+          <formula>MONTHNAME(&quot;ProjectEndDate&quot;)</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="QualifyBudget" order="23" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="QualifyBudget"/>
+        <fixedCurrency>EUR</fixedCurrency>
+        <measureMapping columnObjectName="Join_5" columnName="QualifyBudget"/>
+      </measure>
+      <measure id="PlanBudget" order="24" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="PlanBudget"/>
+        <fixedCurrency>EUR</fixedCurrency>
+        <measureMapping columnObjectName="Join_5" columnName="PlanBudget"/>
+      </measure>
+      <measure id="DesignBudget" order="25" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="DesignBudget"/>
+        <fixedCurrency>EUR</fixedCurrency>
+        <measureMapping columnObjectName="Join_5" columnName="DesignBudget"/>
+      </measure>
+      <measure id="ImplementBudget" order="26" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="ImplementBudget"/>
+        <fixedCurrency>EUR</fixedCurrency>
+        <measureMapping columnObjectName="Join_5" columnName="ImplementBudget"/>
+      </measure>
+      <measure id="RolloutBudget" order="27" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="RolloutBudget"/>
+        <fixedCurrency>EUR</fixedCurrency>
+        <measureMapping columnObjectName="Join_5" columnName="RolloutBudget"/>
+      </measure>
+      <measure id="ClosingBudget" order="28" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="ClosingBudget"/>
+        <fixedCurrency>EUR</fixedCurrency>
+        <measureMapping columnObjectName="Join_5" columnName="ClosingBudget"/>
+      </measure>
+      <measure id="InitiativeBudget" order="33" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Initiative Budget"/>
+        <fixedCurrency>EUR</fixedCurrency>
+        <measureMapping columnObjectName="Join_5" columnName="InitiativeBudget"/>
+      </measure>
+      <measure id="TotalBudget" order="35" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="TotalBudget"/>
+        <fixedCurrency>EUR</fixedCurrency>
+        <measureMapping columnObjectName="Join_5" columnName="TotalBudget"/>
+      </measure>
+      <measure id="Actual" order="49" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Actual"/>
+        <fixedCurrency>EUR</fixedCurrency>
+        <measureMapping columnObjectName="Join_5" columnName="Actual"/>
+      </measure>
+      <measure id="CurrentPhaseBudget" hidden="false" order="56" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Phase Budget"/>
+        <measureMapping columnObjectName="Join_5" columnName="CurrentPhaseBudget"/>
+      </measure>
+      <measure id="ProjectDeyalInDays" hidden="false" order="57" aggregationType="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Join_5" columnName="ProjectDeyalInDays"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="COUNT" hidden="false" order="46" aggregationType="sum" measureType="simple" aggregatable="true" calculatedMeasureType="counter" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="COUNT"/>
+        <exceptionAggregation exceptionAggregationType="countDistinct">
+          <attribute attributeName="ProjectID"/>
+        </exceptionAggregation>
+        <formula>1</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="253" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="549"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="549"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="453"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="549"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

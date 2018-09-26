@@ -1,0 +1,43 @@
+table.schemaName = "CIO"; 
+table.tableType = COLUMNSTORE;  
+ 
+
+table.columns =[  
+	{  
+      name = "GUID"; 					sqlType = NVARCHAR;  length = 50;
+   },
+   {  
+      name = "ChangeLogGUID"; 			sqlType = NVARCHAR;  length = 50;
+   },
+   {  
+      name = "Type";      				sqlType = NVARCHAR;  length = 50;
+   },
+   {  
+	  name = "TypeDescription";      	sqlType = NVARCHAR;  length = 100;
+   },
+   {  
+      name = "FromID";      			sqlType = NVARCHAR;  length = 10;
+   },
+   {  
+      name = "ToID";      				sqlType = NVARCHAR;  length = 10; 
+   },
+   {  
+      name = "Percentage";      		sqlType = DECIMAL;  precision = 30; scale = 5; 
+   },
+   {  
+      name = "FromValue";     			sqlType = DECIMAL;  precision = 30; scale = 5; 
+   },
+   {  
+      name = "ToValue";     			sqlType = DECIMAL;  precision = 30; scale = 5; 
+   },
+   {  
+      name = "FromName";      			sqlType = NVARCHAR;  length = 300;
+   },
+   {  
+      name = "ToName";      				sqlType = NVARCHAR;  length = 300;
+   }
+]; 
+
+table.primaryKey.pkcolumns =[  
+   "GUID"
+];

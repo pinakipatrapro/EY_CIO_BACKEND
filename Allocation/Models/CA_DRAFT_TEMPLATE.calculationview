@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CA_DRAFT_TEMPLATE" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" calculationScenarioType="TREE_BASED" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection">
+  <descriptions defaultDescription="Service For Draft and Template"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="CIO.Allocation.DB.Tables::ChangesDraft" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Allocation.DB.Tables::ChangesDraft"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="UserName"/>
+        <viewAttribute id="TimeStamp"/>
+        <viewAttribute id="Description"/>
+        <viewAttribute id="Status"/>
+        <viewAttribute id="Type"/>
+        <viewAttribute id="GUID"/>
+        <viewAttribute id="Data"/>
+        <viewAttribute id="Attributes"/>
+        <viewAttribute id="UserID"/>
+        <viewAttribute id="Name"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CIO.Allocation.DB.Tables::ChangesDraft">
+        <mapping xsi:type="Calculation:AttributeMapping" target="UserName" source="UserName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TimeStamp" source="TimeStamp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Description" source="Description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Status" source="Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Type" source="Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GUID" source="GUID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Data" source="Data"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Attributes" source="Attributes"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UserID" source="UserID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Name" source="Name"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="UserName" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="UserName"/>
+        <keyMapping columnObjectName="Projection_1" columnName="UserName"/>
+      </attribute>
+      <attribute id="TimeStamp" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TimeStamp"/>
+        <keyMapping columnObjectName="Projection_1" columnName="TimeStamp"/>
+      </attribute>
+      <attribute id="Description" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Description"/>
+        <keyMapping columnObjectName="Projection_1" columnName="Description"/>
+      </attribute>
+      <attribute id="Status" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Status"/>
+        <keyMapping columnObjectName="Projection_1" columnName="Status"/>
+      </attribute>
+      <attribute id="Type" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Template / Draft"/>
+        <keyMapping columnObjectName="Projection_1" columnName="Type"/>
+      </attribute>
+      <attribute id="GUID" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GUID"/>
+        <keyMapping columnObjectName="Projection_1" columnName="GUID"/>
+      </attribute>
+      <attribute id="Data" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Data"/>
+        <keyMapping columnObjectName="Projection_1" columnName="Data"/>
+      </attribute>
+      <attribute id="Attributes" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Only valid if the type is of Draft. Invalid for template Type"/>
+        <keyMapping columnObjectName="Projection_1" columnName="Attributes"/>
+      </attribute>
+      <attribute id="UserID" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="UserID"/>
+        <keyMapping columnObjectName="Projection_1" columnName="UserID"/>
+      </attribute>
+      <attribute id="Name" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Name"/>
+        <keyMapping columnObjectName="Projection_1" columnName="Name"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="50" y="250"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

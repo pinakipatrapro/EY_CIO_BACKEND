@@ -1,0 +1,22 @@
+table.schemaName = "CIO"; 
+table.tableType = COLUMNSTORE;   
+
+
+table.columns =[  
+   {  
+      name = "CreditorAccNumber"; sqlType = NVARCHAR;  length = 30;  comment = "CreditorAccNumber";
+   },
+   {  
+      name = "CreditorName";   sqlType = NVARCHAR;  length = 50; comment = "CreditorName";
+   },
+   {  
+      name = "CreditorCity";  sqlType = NVARCHAR;  length = 50;  comment = "CreditorCity";
+   },
+   {  
+      name = "CreditorCountry";  sqlType = NVARCHAR;  length = 50;  comment = "CreditorCountry";
+   }
+]; 
+
+table.primaryKey.pkcolumns =[  
+   "CreditorAccNumber"
+];

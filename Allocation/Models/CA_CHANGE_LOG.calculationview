@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CA_CHANGE_LOG" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" calculationScenarioType="SCRIPT_BASED" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" scriptParametersCaseSensitive="true">
+  <descriptions defaultDescription="CA_CHANGE_LOG"/>
+  <defaultSchema schemaName="CIO"/>
+  <localVariables>
+    <variable id="IP_GUID" parameter="true">
+      <descriptions defaultDescription="IP_GUID"/>
+      <variableProperties datatype="VARCHAR" defaultValue="d8895552-4a16-08ac-c5e7-725eec3c3eee" length="50" mandatory="true">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources/>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:SqlScriptView" id="Script_View">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute datatype="VARCHAR" id="FromID" length="100"/>
+        <viewAttribute datatype="VARCHAR" id="FromName" length="100"/>
+        <viewAttribute datatype="VARCHAR" id="ToID" length="100"/>
+        <viewAttribute datatype="VARCHAR" id="ToName" length="100"/>
+        <viewAttribute datatype="DECIMAL" id="Percentage" length="30" scale="2"/>
+        <viewAttribute datatype="VARCHAR" id="Type" length="100"/>
+        <viewAttribute datatype="VARCHAR" id="TypeDescription" length="1000"/>
+        <viewAttribute datatype="DECIMAL" id="PercentageFrom" length="30" scale="2"/>
+        <viewAttribute datatype="VARCHAR" id="DeltaType" length="100"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <localVariable>#IP_GUID</localVariable>
+      <definition> 
+ /********* Begin Procedure Script ************/ 
+ BEGIN 
+
+  	 declare PREV_GUID nvarchar(50);
+  	 
+  	 --Get Previous GUID
+	
+	select top 1 &quot;GUID&quot;  into PREV_GUID from &quot;CIO.Allocation.DB.Tables::AllocationChangeLog&quot;
+	where &quot;CreatedOn&quot; &lt; (select &quot;CreatedOn&quot; from &quot;CIO.Allocation.DB.Tables::AllocationChangeLog&quot; 
+		where GUID = :IP_GUID) 
+	order by &quot;CreatedOn&quot; desc;
+	
+	--Get Table Trellis
+	current_data = select 
+						&quot;FromID&quot;,
+						&quot;FromName&quot;,
+						&quot;ToID&quot;,
+						&quot;ToName&quot;,
+						&quot;Percentage&quot;,
+						&quot;Type&quot;,
+						&quot;TypeDescription&quot;,
+						0 as &quot;PercentageFrom&quot;
+					 from &quot;CIO&quot;.&quot;CIO.Allocation.DB.Tables::AllocationData&quot;
+					where &quot;ChangeLogGUID&quot; = :IP_GUID;
+	
+	previous_data = select 
+						&quot;FromID&quot;,
+						&quot;FromName&quot;,
+						&quot;ToID&quot;,
+						&quot;ToName&quot;,
+						&quot;Percentage&quot;,
+						&quot;Type&quot;,
+						&quot;TypeDescription&quot;,
+						0 as &quot;PercentageFrom&quot;
+					 from &quot;CIO&quot;.&quot;CIO.Allocation.DB.Tables::AllocationData&quot;
+					where &quot;ChangeLogGUID&quot; = :PREV_GUID;
+					
+	--Get Additions &amp; Deletions
+	added_data 		= 	select *,'Additions' as &quot;DeltaType&quot; from 
+							( select * from :current_data  where concat(&quot;FromID&quot;,&quot;ToID&quot;) not in 
+								(select concat(&quot;FromID&quot;,&quot;ToID&quot;) from :previous_data)
+							)
+							except 
+						select *, 'Additions' as &quot;DeltaType&quot; from 
+							( select * from :previous_data  where concat(&quot;FromID&quot;,&quot;ToID&quot;) not in 
+								(select concat(&quot;FromID&quot;,&quot;ToID&quot;) from :current_data)
+							) 
+							;
+						
+	deleted_data 	= 	select *,'Deletions' as &quot;DeltaType&quot; from 
+							( select * from :previous_data  where concat(&quot;FromID&quot;,&quot;ToID&quot;) not in 
+								(select concat(&quot;FromID&quot;,&quot;ToID&quot;) from :current_data)
+							)
+						 	except 
+					 	select *, 'Deletions' as &quot;DeltaType&quot; from 
+					 		( select * from :current_data  where concat(&quot;FromID&quot;,&quot;ToID&quot;) not in 
+								(select concat(&quot;FromID&quot;,&quot;ToID&quot;) from :previous_data)
+							)
+							;
+	
+	
+	--Get Changes
+	
+	changes_data = 	SELECT
+					  	a.&quot;FromID&quot;,
+						a.&quot;FromName&quot;,
+						a.&quot;ToID&quot;,
+						a.&quot;ToName&quot;,
+						a.&quot;Percentage&quot;,
+						a.&quot;Type&quot;,
+						a.&quot;TypeDescription&quot;,
+						b.&quot;Percentage&quot; as &quot;PercentageFrom&quot;,
+						'Changes' as &quot;DeltaType&quot;
+					FROM :current_data AS a
+					
+					INNER JOIN :previous_data AS b
+					
+					  ON a.&quot;FromID&quot; = b.&quot;FromID&quot;
+					  AND a.&quot;ToID&quot; = b.&quot;ToID&quot;
+					  AND a.&quot;Percentage&quot; &lt;> b.&quot;Percentage&quot;;
+	
+	
+
+	var_out  = select * from 
+				:added_data 
+				union
+				select * from :deleted_data
+				union
+				select * from :changes_data
+				;
+
+
+END /********* End Procedure Script ************/</definition>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Script_View">
+    <descriptions/>
+    <attributes>
+      <attribute id="FromID" order="1">
+        <descriptions defaultDescription="FromID"/>
+        <keyMapping columnObjectName="Script_View" columnName="FromID"/>
+      </attribute>
+      <attribute id="FromName" order="2">
+        <descriptions defaultDescription="Dum"/>
+        <keyMapping columnObjectName="Script_View" columnName="FromName"/>
+      </attribute>
+      <attribute id="ToID" order="3">
+        <descriptions defaultDescription="ToID"/>
+        <keyMapping columnObjectName="Script_View" columnName="ToID"/>
+      </attribute>
+      <attribute id="ToName" order="4">
+        <descriptions defaultDescription="ToName"/>
+        <keyMapping columnObjectName="Script_View" columnName="ToName"/>
+      </attribute>
+      <attribute id="Type" order="6">
+        <descriptions defaultDescription="Type"/>
+        <keyMapping columnObjectName="Script_View" columnName="Type"/>
+      </attribute>
+      <attribute id="TypeDescription" order="7">
+        <descriptions defaultDescription="TypeDescription"/>
+        <keyMapping columnObjectName="Script_View" columnName="TypeDescription"/>
+      </attribute>
+      <attribute id="DeltaType" order="9">
+        <descriptions defaultDescription="DeltaType"/>
+        <keyMapping columnObjectName="Script_View" columnName="DeltaType"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Percentage" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Percentage"/>
+        <measureMapping columnObjectName="Script_View" columnName="Percentage"/>
+      </measure>
+      <measure id="PercentageFrom" order="8" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="PercentageFrom"/>
+        <measureMapping columnObjectName="Script_View" columnName="PercentageFrom"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

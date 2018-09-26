@@ -1,0 +1,16 @@
+table.schemaName = "CIO"; 
+table.tableType = COLUMNSTORE;  
+
+
+table.columns =[  
+   {  
+      name = "BusinessID"; sqlType = NVARCHAR;  length = 30;  comment = "BusinessID";
+   },
+   {  
+      name = "BusinessName";   sqlType = NVARCHAR;  length = 100; comment = "BusinessName";
+   }
+]; 
+
+table.primaryKey.pkcolumns =[  
+   "BusinessID"
+]; 

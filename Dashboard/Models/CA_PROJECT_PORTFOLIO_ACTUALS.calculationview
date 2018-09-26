@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CA_PROJECT_PORTFOLIO_ACTUALS" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <descriptions defaultDescription="CA_PROJECT_PORTFOLIO_ACTUALS"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="39"/>
+  <dataSources>
+    <DataSource id="CIO.Dashboard.DB.Tables::WBS" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::WBS"/>
+    </DataSource>
+    <DataSource id="CIO.Dashboard.DB.Tables::ActualCostAccounting" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::ActualCostAccounting"/>
+    </DataSource>
+    <DataSource id="CIO.Dashboard.DB.Tables::Project" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::Project"/>
+    </DataSource>
+    <DataSource id="CIO.Dashboard.DB.Tables::ReportingUnit" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::ReportingUnit"/>
+    </DataSource>
+    <DataSource id="CIO.Dashboard.DB.Tables::ChartOfAccounts" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::ChartOfAccounts"/>
+    </DataSource>
+    <DataSource id="CA_CREDITOR_ACCOUNT_NUMBER_IT_VENDOR" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/CIO.Dashboard.Models/calculationviews/CA_CREDITOR_ACCOUNT_NUMBER_IT_VENDOR</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="WBSElementID"/>
+        <viewAttribute id="ProjectIDWBS"/>
+        <viewAttribute id="ExpenseType"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CIO.Dashboard.DB.Tables::WBS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSElementID" source="WBSElementID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectIDWBS" source="ProjectIDWBS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ExpenseType" source="ExpenseType"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="AmountinLocalCurrency"/>
+        <viewAttribute id="LocalCurrency"/>
+        <viewAttribute id="WBSElementID"/>
+        <viewAttribute id="CompanyCode"/>
+        <viewAttribute id="GLAccountNumber"/>
+        <viewAttribute id="CreditorAccountNumber"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CIO.Dashboard.DB.Tables::ActualCostAccounting">
+        <mapping xsi:type="Calculation:AttributeMapping" target="AmountinLocalCurrency" source="AmountinLocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LocalCurrency" source="LocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSElementID" source="WBSElementID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CompanyCode" source="CompanyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountNumber" source="GLAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreditorAccountNumber" source="CreditorAccountNumber"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="AmountinLocalCurrency"/>
+        <viewAttribute id="LocalCurrency"/>
+        <viewAttribute id="ProjectIDWBS"/>
+        <viewAttribute id="ExpenseType"/>
+        <viewAttribute id="CompanyCode"/>
+        <viewAttribute id="CreditorAccountNumber"/>
+        <viewAttribute id="GLAccountNumber"/>
+        <viewAttribute hidden="true" id="JOIN$WBSElementID$WBSElementID"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="AmountinLocalCurrency" source="AmountinLocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LocalCurrency" source="LocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CompanyCode" source="CompanyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreditorAccountNumber" source="CreditorAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountNumber" source="GLAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$WBSElementID$WBSElementID" source="WBSElementID"/>
+      </input>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectIDWBS" source="ProjectIDWBS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ExpenseType" source="ExpenseType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$WBSElementID$WBSElementID" source="WBSElementID"/>
+      </input>
+      <joinAttribute name="JOIN$WBSElementID$WBSElementID"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ProjectID"/>
+        <viewAttribute id="ProjectName"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CIO.Dashboard.DB.Tables::Project">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectID" source="ProjectID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectName" source="ProjectName"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CompanyCode"/>
+        <viewAttribute id="ReportingUnitName"/>
+        <viewAttribute id="Country"/>
+        <viewAttribute id="Region"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CIO.Dashboard.DB.Tables::ReportingUnit">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CompanyCode" source="CompanyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ReportingUnitName" source="ReportingUnitName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Country" source="Country"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Region" source="Region"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ReportingUnitName"/>
+        <viewAttribute id="Country"/>
+        <viewAttribute id="Region"/>
+        <viewAttribute id="ExpenseType"/>
+        <viewAttribute id="ProjectIDWBS"/>
+        <viewAttribute id="LocalCurrency"/>
+        <viewAttribute id="AmountinLocalCurrency"/>
+        <viewAttribute id="GLAccountNumber"/>
+        <viewAttribute id="CreditorAccountNumber"/>
+        <viewAttribute hidden="true" id="JOIN$CompanyCode$CompanyCode"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ExpenseType" source="ExpenseType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectIDWBS" source="ProjectIDWBS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LocalCurrency" source="LocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AmountinLocalCurrency" source="AmountinLocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountNumber" source="GLAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreditorAccountNumber" source="CreditorAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CompanyCode$CompanyCode" source="CompanyCode"/>
+      </input>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ReportingUnitName" source="ReportingUnitName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Country" source="Country"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Region" source="Region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CompanyCode$CompanyCode" source="CompanyCode"/>
+      </input>
+      <joinAttribute name="JOIN$CompanyCode$CompanyCode"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="GLAccountName"/>
+        <viewAttribute id="GLAccountNumber"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CIO.Dashboard.DB.Tables::ChartOfAccounts">
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountName" source="GLAccountName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountNumber" source="GLAccountNumber"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ReportingUnitName"/>
+        <viewAttribute id="Country"/>
+        <viewAttribute id="Region"/>
+        <viewAttribute id="ExpenseType"/>
+        <viewAttribute id="ProjectIDWBS"/>
+        <viewAttribute id="LocalCurrency"/>
+        <viewAttribute id="AmountinLocalCurrency"/>
+        <viewAttribute id="CreditorAccountNumber"/>
+        <viewAttribute id="GLAccountName"/>
+        <viewAttribute hidden="true" id="JOIN$GLAccountNumber$GLAccountNumber"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountName" source="GLAccountName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$GLAccountNumber$GLAccountNumber" source="GLAccountNumber"/>
+      </input>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ReportingUnitName" source="ReportingUnitName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Country" source="Country"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Region" source="Region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ExpenseType" source="ExpenseType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectIDWBS" source="ProjectIDWBS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LocalCurrency" source="LocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AmountinLocalCurrency" source="AmountinLocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreditorAccountNumber" source="CreditorAccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$GLAccountNumber$GLAccountNumber" source="GLAccountNumber"/>
+      </input>
+      <joinAttribute name="JOIN$GLAccountNumber$GLAccountNumber"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CreditorAccNumber"/>
+        <viewAttribute id="VendorName"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CA_CREDITOR_ACCOUNT_NUMBER_IT_VENDOR">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreditorAccNumber" source="CreditorAccNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VendorName" source="VendorName"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="VendorName"/>
+        <viewAttribute id="ReportingUnitName"/>
+        <viewAttribute id="Country"/>
+        <viewAttribute id="Region"/>
+        <viewAttribute id="ExpenseType"/>
+        <viewAttribute id="ProjectIDWBS"/>
+        <viewAttribute id="LocalCurrency"/>
+        <viewAttribute id="AmountinLocalCurrency"/>
+        <viewAttribute id="GLAccountName"/>
+        <viewAttribute hidden="true" id="JOIN$CreditorAccountNumber$CreditorAccNumber"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ReportingUnitName" source="ReportingUnitName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Country" source="Country"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Region" source="Region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ExpenseType" source="ExpenseType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectIDWBS" source="ProjectIDWBS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LocalCurrency" source="LocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AmountinLocalCurrency" source="AmountinLocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountName" source="GLAccountName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CreditorAccountNumber$CreditorAccNumber" source="CreditorAccountNumber"/>
+      </input>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="VendorName" source="VendorName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CreditorAccountNumber$CreditorAccNumber" source="CreditorAccNumber"/>
+      </input>
+      <joinAttribute name="JOIN$CreditorAccountNumber$CreditorAccNumber"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ProjectID"/>
+        <viewAttribute id="ProjectName"/>
+        <viewAttribute id="ReportingUnitName"/>
+        <viewAttribute id="Country"/>
+        <viewAttribute id="Region"/>
+        <viewAttribute id="ExpenseType"/>
+        <viewAttribute id="AmountinLocalCurrency"/>
+        <viewAttribute id="LocalCurrency"/>
+        <viewAttribute id="GLAccountName"/>
+        <viewAttribute id="VendorName"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectID" source="ProjectID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectName" source="ProjectName"/>
+      </input>
+      <input node="#Join_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ReportingUnitName" source="ReportingUnitName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Country" source="Country"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Region" source="Region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ExpenseType" source="ExpenseType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AmountinLocalCurrency" source="AmountinLocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LocalCurrency" source="LocalCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLAccountName" source="GLAccountName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VendorName" source="VendorName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProjectID" source="ProjectIDWBS"/>
+      </input>
+      <joinAttribute name="ProjectID"/>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Join_2">
+    <descriptions/>
+    <attributes>
+      <attribute id="ProjectID" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectID"/>
+        <keyMapping columnObjectName="Join_2" columnName="ProjectID"/>
+      </attribute>
+      <attribute id="ProjectName" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectName"/>
+        <keyMapping columnObjectName="Join_2" columnName="ProjectName"/>
+      </attribute>
+      <attribute id="ProjectID_1" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectID"/>
+        <keyMapping columnObjectName="Join_2" columnName="ProjectID"/>
+      </attribute>
+      <attribute id="ProjectName_1" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProjectName"/>
+        <keyMapping columnObjectName="Join_2" columnName="ProjectName"/>
+      </attribute>
+      <attribute id="ReportingUnitName" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ReportingUnitName"/>
+        <keyMapping columnObjectName="Join_2" columnName="ReportingUnitName"/>
+      </attribute>
+      <attribute id="Country" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Country"/>
+        <keyMapping columnObjectName="Join_2" columnName="Country"/>
+      </attribute>
+      <attribute id="Region" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Join_2" columnName="Region"/>
+      </attribute>
+      <attribute id="ExpenseType" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ExpenseType"/>
+        <keyMapping columnObjectName="Join_2" columnName="ExpenseType"/>
+      </attribute>
+      <attribute id="LocalCurrency" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Local Currency"/>
+        <keyMapping columnObjectName="Join_2" columnName="LocalCurrency"/>
+      </attribute>
+      <attribute id="GLAccountName" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GLAccountName"/>
+        <keyMapping columnObjectName="Join_2" columnName="GLAccountName"/>
+      </attribute>
+      <attribute id="VendorName" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VendorName"/>
+        <keyMapping columnObjectName="Join_2" columnName="VendorName"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="AmountinLocalCurrency" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Amount in Local Currency"/>
+        <measureMapping columnObjectName="Join_2" columnName="AmountinLocalCurrency"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="645"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="645"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="549"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="549"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="453"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="453"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

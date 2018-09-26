@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CA_BUDGET_WRAPER" applyPrivilegeType="ANALYTIC_PRIVILEGE" dataCategory="CUBE" schemaVersion="2.3" defaultClient="$$client$$" visibility="reportingEnabled" calculationScenarioType="SCRIPT_BASED" scriptParametersCaseSensitive="true" enforceSqlExecution="false">
+<descriptions defaultDescription="CA_BUDGET_WRAPER"/>
+<localVariables/>
+<variableMappings/>
+<dataSources/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:SqlScriptView" id="Script_View">
+    <viewAttributes>
+      <viewAttribute id="Value" datatype="DECIMAL" length="15" scale="2"/>
+      <viewAttribute id="ValueType" datatype="VARCHAR" length="50"/>
+    
+      <viewAttribute id="MeasureName" datatype="VARCHAR" length="50"/>
+      <viewAttribute id="Top" datatype="VARCHAR" length="50"/>
+      <viewAttribute id="MeasureType" datatype="VARCHAR" length="50"/>
+    
+      <viewAttribute id="FilterBy" datatype="VARCHAR" length="50"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <definition>/********* Begin Procedure Script ************/ 
+BEGIN 
+
+
+                                -- +-----+--------+--------+----------+
+                                -- |     | Amount | Budget | Variance |
+                                -- +-----+--------+--------+----------+
+                                -- | CCN | 2      | 5      | 8        |
+                                -- +-----+--------+--------+----------+
+                                -- | CCO | 3      | 6      | 9        |
+                                -- +-----+--------+--------+----------+
+                                -- | GLA | 1      | 4      | 7        |
+                                -- +-----+--------+--------+----------+
+    var_out = 
+                ------GLA VS Amount(Actual) -------
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_GLA&quot; ('%%','%%','All',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_GLA&quot; ('%%','%%','All',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_GLA&quot; ('%%','%%','All',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_GLA&quot; ('%%','%Proj%','Projects',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_GLA&quot; ('%%','%Proj%','Projects',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_GLA&quot; ('%%','%Proj%','Projects',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_GLA&quot; ('%%','%Ope%','Operation',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_GLA&quot; ('%%','%Ope%','Operation',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_GLA&quot; ('%%','%Ope%','Operation',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_GLA&quot; ('%Cap%','%%','CapEx',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_GLA&quot; ('%Cap%','%%','CapEx',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_GLA&quot; ('%Cap%','%%','CapEx',10)  union 
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_GLA&quot; ('%OpEx%','%%','OpEx',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_GLA&quot; ('%OpEx%','%%','OpEx',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_GLA&quot; ('%OpEx%','%%','OpEx',10)  union
+               
+               ------CCN Vs Amount(Actuals)
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCN&quot; ('%%','%%','All',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCN&quot; ('%%','%%','All',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCN&quot; ('%%','%%','All',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCN&quot; ('%%','%Proj%','Projects',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCN&quot; ('%%','%Proj%','Projects',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCN&quot; ('%%','%Proj%','Projects',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCN&quot; ('%%','%Ope%','Operation',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCN&quot; ('%%','%Ope%','Operation',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCN&quot; ('%%','%Ope%','Operation',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCN&quot; ('%Cap%','%%','CapEx',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCN&quot; ('%Cap%','%%','CapEx',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCN&quot; ('%Cap%','%%','CapEx',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCN&quot; ('%OpEx%','%%','OpEx',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCN&quot; ('%OpEx%','%%','OpEx',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCN&quot; ('%OpEx%','%%','OpEx',10) union
+                
+                ------CC0 Vs Amount(Actuals)
+                
+                select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCO&quot; ('%%','%%','All',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCO&quot; ('%%','%%','All',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCO&quot; ('%%','%%','All',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCO&quot; ('%%','%Proj%','Projects',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCO&quot; ('%%','%Proj%','Projects',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCO&quot; ('%%','%Proj%','Projects',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCO&quot; ('%%','%Ope%','Operation',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCO&quot; ('%%','%Ope%','Operation',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCO&quot; ('%%','%Ope%','Operation',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCO&quot; ('%Cap%','%%','CapEx',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCO&quot; ('%Cap%','%%','CapEx',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCO&quot; ('%Cap%','%%','CapEx',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCO&quot; ('%OpEx%','%%','OpEx',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCO&quot; ('%OpEx%','%%','OpEx',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_AMOUNT_CCO&quot; ('%OpEx%','%%','OpEx',10) union
+               
+               ------GLA Vs Budget
+                
+                select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_GLA&quot; ('%%','%%','All',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_GLA&quot; ('%%','%%','All',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_GLA&quot; ('%%','%%','All',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_GLA&quot; ('%%','%Proj%','Projects',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_GLA&quot; ('%%','%Proj%','Projects',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_GLA&quot; ('%%','%Proj%','Projects',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_GLA&quot; ('%%','%Ope%','Operation',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_GLA&quot; ('%%','%Ope%','Operation',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_GLA&quot; ('%%','%Ope%','Operation',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_GLA&quot; ('%Cap%','%%','CapEx',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_GLA&quot; ('%Cap%','%%','CapEx',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_GLA&quot; ('%Cap%','%%','CapEx',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_GLA&quot; ('%OpEx%','%%','OpEx',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_GLA&quot; ('%OpEx%','%%','OpEx',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_GLA&quot; ('%OpEx%','%%','OpEx',10) union
+               
+               ------CCN Vs Budget
+                
+                select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCN&quot; ('%%','%%','All',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCN&quot; ('%%','%%','All',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCN&quot; ('%%','%%','All',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCN&quot; ('%%','%Proj%','Projects',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCN&quot; ('%%','%Proj%','Projects',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCN&quot; ('%%','%Proj%','Projects',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCN&quot; ('%%','%Ope%','Operation',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCN&quot; ('%%','%Ope%','Operation',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCN&quot; ('%%','%Ope%','Operation',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCN&quot; ('%Cap%','%%','CapEx',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCN&quot; ('%Cap%','%%','CapEx',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCN&quot; ('%Cap%','%%','CapEx',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCN&quot; ('%OpEx%','%%','OpEx',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCN&quot; ('%OpEx%','%%','OpEx',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCN&quot; ('%OpEx%','%%','OpEx',10) union
+               
+                ------CCO Vs Budget
+                
+                select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCO&quot; ('%%','%%','All',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCO&quot; ('%%','%%','All',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCO&quot; ('%%','%%','All',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCO&quot; ('%%','%Proj%','Projects',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCO&quot; ('%%','%Proj%','Projects',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCO&quot; ('%%','%Proj%','Projects',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCO&quot; ('%%','%Ope%','Operation',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCO&quot; ('%%','%Ope%','Operation',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCO&quot; ('%%','%Ope%','Operation',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCO&quot; ('%Cap%','%%','CapEx',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCO&quot; ('%Cap%','%%','CapEx',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCO&quot; ('%Cap%','%%','CapEx',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCO&quot; ('%OpEx%','%%','OpEx',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCO&quot; ('%OpEx%','%%','OpEx',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_BUDGET_CCO&quot; ('%OpEx%','%%','OpEx',10) union
+               
+               ------GLA Vs Variance
+                
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_GLA&quot; ('%%','%%','All',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_GLA&quot; ('%%','%%','All',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_GLA&quot; ('%%','%%','All',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_GLA&quot; ('%%','%Proj%','Projects',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_GLA&quot; ('%%','%Proj%','Projects',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_GLA&quot; ('%%','%Proj%','Projects',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_GLA&quot; ('%%','%Ope%','Operation',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_GLA&quot; ('%%','%Ope%','Operation',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_GLA&quot; ('%%','%Ope%','Operation',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_GLA&quot; ('%Cap%','%%','CapEx',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_GLA&quot; ('%Cap%','%%','CapEx',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_GLA&quot; ('%Cap%','%%','CapEx',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_GLA&quot; ('%OpEx%','%%','OpEx',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_GLA&quot; ('%OpEx%','%%','OpEx',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_GLA&quot; ('%OpEx%','%%','OpEx',10) union
+               
+               ------CCN Vs Variance
+                
+                select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCN&quot; ('%%','%%','All',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCN&quot; ('%%','%%','All',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCN&quot; ('%%','%%','All',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCN&quot; ('%%','%Proj%','Projects',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCN&quot; ('%%','%Proj%','Projects',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCN&quot; ('%%','%Proj%','Projects',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCN&quot; ('%%','%Ope%','Operation',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCN&quot; ('%%','%Ope%','Operation',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCN&quot; ('%%','%Ope%','Operation',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCN&quot; ('%Cap%','%%','CapEx',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCN&quot; ('%Cap%','%%','CapEx',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCN&quot; ('%Cap%','%%','CapEx',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCN&quot; ('%OpEx%','%%','OpEx',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCN&quot; ('%OpEx%','%%','OpEx',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCN&quot; ('%OpEx%','%%','OpEx',10) union
+               
+                ------CCO Vs Variance
+                
+                select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCO&quot; ('%%','%%','All',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCO&quot; ('%%','%%','All',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCO&quot; ('%%','%%','All',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCO&quot; ('%%','%Proj%','Projects',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCO&quot; ('%%','%Proj%','Projects',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCO&quot; ('%%','%Proj%','Projects',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCO&quot; ('%%','%Ope%','Operation',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCO&quot; ('%%','%Ope%','Operation',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCO&quot; ('%%','%Ope%','Operation',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCO&quot; ('%Cap%','%%','CapEx',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCO&quot; ('%Cap%','%%','CapEx',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCO&quot; ('%Cap%','%%','CapEx',10)  union
+               
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCO&quot; ('%OpEx%','%%','OpEx',3)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCO&quot; ('%OpEx%','%%','OpEx',5)  union
+               select * from &quot;CIO&quot;.&quot;CIO_RANKED_DATA_VARIANCE_CCO&quot; ('%OpEx%','%%','OpEx',10) 
+               
+                ;
+END /********* End Procedure Script ************/
+
+
+
+</definition>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Script_View">
+  <attributes>
+    <attribute id="ValueType" order="2" semanticType="empty">
+      <descriptions defaultDescription="COL"/>
+      <keyMapping columnObjectName="Script_View" columnName="ValueType"/>
+    </attribute>
+    <attribute id="MeasureName" order="3">
+      <keyMapping columnObjectName="Script_View" columnName="MeasureName"/>
+    </attribute>
+    <attribute id="Top" order="4">
+      <keyMapping columnObjectName="Script_View" columnName="Top"/>
+    </attribute>
+    <attribute id="MeasureType" order="5">
+      <keyMapping columnObjectName="Script_View" columnName="MeasureType"/>
+    </attribute>
+  
+    <attribute id="FilterBy" order="6">
+  
+      <keyMapping columnObjectName="Script_View" columnName="FilterBy"/>
+  
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="Value" order="1" aggregationType="sum" measureType="simple">
+      <measureMapping columnObjectName="Script_View" columnName="Value"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,22 @@
+table.schemaName = "CIO"; 
+table.tableType = COLUMNSTORE;  
+
+
+table.columns =[  
+   {  
+      name = "InitiativeID"; sqlType = NVARCHAR;  length = 30;   comment = "Initiative";
+   },
+   {  
+      name = "InitiativeName";   sqlType = NVARCHAR; length = 50; comment = "Initiative Name";
+   },
+   {  
+      name = "InitiativeBudget";  sqlType = DECIMAL;  precision = 30; scale = 5;  comment = "Initiative Budget";
+   },
+   {  
+      name = "ProjectManagerWBS";  sqlType = NVARCHAR;  length = 50;   comment = "Project Manager_WBS";
+   }
+]; 
+
+table.primaryKey.pkcolumns =[  
+   "InitiativeID"
+];

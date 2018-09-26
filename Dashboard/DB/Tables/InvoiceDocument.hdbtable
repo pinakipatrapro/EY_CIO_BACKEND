@@ -1,0 +1,43 @@
+table.schemaName = "CIO"; 
+table.tableType = COLUMNSTORE;   
+
+table.columns =[  
+   {  
+      name = "InvoiceDocumentNumber"; sqlType = NVARCHAR;  length = 30;  comment = "InvoiceDocNumber";
+   },
+   {  
+      name = "InvoiceLineItemID";   sqlType = NVARCHAR;  length = 30; comment = "InvoiceLineItemID";
+   },
+   {  
+      name = "CreditorAccNumber";  sqlType = NVARCHAR;  length = 30;  comment = "CreditorAccNumber";
+   },
+   {  
+      name = "PODocumentNumber"; sqlType = NVARCHAR;  length = 30;  comment = "PODocNumber";
+   },
+   {  
+      name = "POLineItemID"; sqlType = NVARCHAR;  length = 30;  comment = "POLineItemID";
+   },
+   {  
+      name = "InvoiceLineItemTxt";  sqlType = NVARCHAR;  length = 100; comment = "InvoiceLineItemTxt";
+   },
+   {  
+      name = "InvoiceLineItemOrderUnit"; sqlType = NVARCHAR;   length = 10;  comment = "InvoiceLineItemOrderUnit";
+   },
+   {  
+      name = "InvoiceLineItemOrderQuantity"; sqlType = DECIMAL;  precision = 30; scale = 15;  comment = "InvoiceLineItemOrderQuantity";
+   },
+   {  
+      name = "InvoiceLineItemUnitPrice";  sqlType = DECIMAL;  precision = 30; scale = 15; comment = "InvoiceLineItemUnitPrice";
+   },
+   {  
+      name = "InvoiceLineItemPrice"; sqlType = DECIMAL;  precision = 30; scale = 15;  comment = "InvoiceLineItemPrice";
+   },
+   {  
+      name = "InvoiceDate"; sqlType = DATE; comment = "InvoiceDate";
+   }
+]; 
+ 
+table.primaryKey.pkcolumns =[  
+   "InvoiceDocumentNumber",
+   "InvoiceLineItemID"
+];

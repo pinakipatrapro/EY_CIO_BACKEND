@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CA_IT_SERVICES" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" calculationScenarioType="TREE_BASED" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <descriptions defaultDescription="CA_IT_SERVICES"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="CIO.Dashboard.DB.Tables::ITServices" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::ITServices"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews/>
+  <logicalModel id="CIO.Dashboard.DB.Tables::ITServices">
+    <descriptions/>
+    <attributes>
+      <attribute id="ITServiceID" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CostCenterID"/>
+        <keyMapping schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::ITServices" columnName="ITServiceID"/>
+      </attribute>
+      <attribute id="ITTower" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CostCenterName"/>
+        <keyMapping schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::ITServices" columnName="ITTower"/>
+      </attribute>
+      <attribute id="ITSubTower" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CostCenterOwner"/>
+        <keyMapping schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::ITServices" columnName="ITSubTower"/>
+      </attribute>
+      <attribute id="ITService" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LevelInCCHierarchy"/>
+        <keyMapping schemaName="CIO" columnObjectName="CIO.Dashboard.DB.Tables::ITServices" columnName="ITService"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="NavigateToAll" hidden="false" order="5" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="NavigateToAll"/>
+        <keyCalculation datatype="VARCHAR" expressionLanguage="COLUMN_ENGINE" length="1">
+          <formula>'*'</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

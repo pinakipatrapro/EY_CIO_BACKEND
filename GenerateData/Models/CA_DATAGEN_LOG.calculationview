@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CA_DATAGEN_LOG" applyPrivilegeType="NONE" checkAnalyticPrivileges="false" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" calculationScenarioType="SCRIPT_BASED" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" runWithInvokerPrivileges="true" scriptParametersCaseSensitive="true">
+  <descriptions defaultDescription="CA_DATAGEN_LOG"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources/>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:SqlScriptView" id="Script_View">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute datatype="VARCHAR" id="ID" length="100"/>
+        <viewAttribute datatype="VARCHAR" id="NAME" length="300"/>
+        <viewAttribute datatype="VARCHAR" id="NAME_LOWER" length="300"/>
+        <viewAttribute datatype="INTEGER" id="DATA_LENGTH"/>
+        <viewAttribute datatype="VARCHAR" id="DESCRIPTION" length="1000"/>
+        <viewAttribute datatype="VARCHAR" id="TIMESTAMP" length="50"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <definition> 
+ /********* Begin Procedure Script ************/ 
+ BEGIN 
+ 	 var_out = SELECT 
+					ID,
+					NAME,
+					concat(lower(NAME),lower(DESCRIPTION)) as NAME_LOWER,
+					LENGTH(DATASET) as DATA_LENGTH,
+					DESCRIPTION,
+					cast(TIMESTAMP as varchar(19) ) as TIMESTAMP
+				 FROM  &quot;CIO&quot;.&quot;CIO.GenerateData.DB.Tables.Util::GeneratedDataLogger&quot;
+				 where USERNAME = CURRENT_USER
+				 and status &lt;&gt; 'D' 
+				 order by TIMESTAMP desc;
+
+END /********* End Procedure Script ************/</definition>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Script_View">
+    <descriptions/>
+    <attributes>
+      <attribute id="ID" order="1">
+        <descriptions defaultDescription="ID"/>
+        <keyMapping columnObjectName="Script_View" columnName="ID"/>
+      </attribute>
+      <attribute id="NAME" order="2">
+        <descriptions defaultDescription="NAME"/>
+        <keyMapping columnObjectName="Script_View" columnName="NAME"/>
+      </attribute>
+      <attribute id="NAME_LOWER" order="3">
+        <descriptions defaultDescription="NAME_LOWER"/>
+        <keyMapping columnObjectName="Script_View" columnName="NAME_LOWER"/>
+      </attribute>
+      <attribute id="DATA_LENGTH" order="4">
+        <descriptions defaultDescription="DATA_LENGTH"/>
+        <keyMapping columnObjectName="Script_View" columnName="DATA_LENGTH"/>
+      </attribute>
+      <attribute id="DESCRIPTION" order="5">
+        <descriptions defaultDescription="DESCRIPTION"/>
+        <keyMapping columnObjectName="Script_View" columnName="DESCRIPTION"/>
+      </attribute>
+      <attribute id="TIMESTAMP" order="6">
+        <descriptions defaultDescription="TIMESTAMP"/>
+        <keyMapping columnObjectName="Script_View" columnName="TIMESTAMP"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>
